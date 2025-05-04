@@ -2,36 +2,14 @@ import { NextResponse } from "next/server";
 import dbConnect from "@lib/dbConnect";
 import Ads from "@models/Ads";
 import mongoose from "mongoose";
-import multer from "multer";
 import { GridFSBucket } from "mongodb";
 import { Readable } from "stream";
 
-// Configure multer for memory storage
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10MB
-});
-
-// Middleware to handle multipart/form-data
-const uploadMiddleware = upload.fields([
-  { name: "image", maxCount: 1 },
-  { name: "video", maxCount: 1 },
-]);
-
-// Helper function to run middleware in Next.js API routes
-const runMiddleware = (req, res, fn) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-};
-
 // Helper to upload file buffer to GridFS
 async function uploadFileToGridFS(buffer, filename, mimeType) {
+  if (mongoose.connection.readyState !== 1) {
+    throw new Error("MongoDB connection is not ready");
+  }
   const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
   const uploadStream = bucket.openUploadStream(filename, {
     metadata: { mimeType },
@@ -52,19 +30,23 @@ export async function POST(req) {
     // Connect to MongoDB
     await dbConnect();
 
-    // Run multer middleware to parse FormData
-    await runMiddleware(req, {}, uploadMiddleware);
+    // Parse form data using NextRequest's formData()
+    const formData = await req.formData();
 
-    // Extract text fields and files
-    const { title, description, link } = req.body;
-    const image = req.files?.image ? req.files.image[0] : null;
-    const video = req.files?.video ? req.files.video[0] : null;
+    // Extract text fields
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const link = formData.get("link");
+
+    // Extract files
+    const image = formData.get("image");
+    const video = formData.get("video");
 
     // Debug received data
     console.log("Received fields:", { title, description, link });
     console.log("Received files:", {
-      image: image?.originalname,
-      video: video?.originalname,
+      image: image?.name,
+      video: video?.name,
     });
 
     // Validate input
@@ -75,17 +57,22 @@ export async function POST(req) {
       );
     }
 
+    // Validate file size (e.g., 10MB limit)
+    const maxFileSize = 10 * 1024 * 1024 ; // 10MB
+    if (image.size > maxFileSize || video.size > maxFileSize) {
+      return NextResponse.json(
+        { message: "File size exceeds the 10MB limit" },
+        { status: 400 }
+      );
+    }
+
+    // Convert files to buffers
+    const imageBuffer = Buffer.from(await image.arrayBuffer());
+    const videoBuffer = Buffer.from(await video.arrayBuffer());
+
     // Upload files to GridFS
-    const imageId = await uploadFileToGridFS(
-      image.buffer,
-      image.originalname,
-      image.mimetype
-    );
-    const videoId = await uploadFileToGridFS(
-      video.buffer,
-      video.originalname,
-      video.mimetype
-    );
+    const imageId = await uploadFileToGridFS(imageBuffer, image.name, image.type);
+    const videoId = await uploadFileToGridFS(videoBuffer, video.name, video.type);
 
     // Create new ad
     const newAd = new Ads({
@@ -105,6 +92,26 @@ export async function POST(req) {
     );
   } catch (error) {
     console.error("Error creating ad:", error);
+    return NextResponse.json(
+      { message: "Internal server error", error: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+
+
+
+
+// GET handler: Retrieve all ads
+export async function GET() {
+  try {
+    await dbConnect();
+    const ads = await Ads.find().lean();
+    console.log(ads); // Fetch all ads
+    return NextResponse.json({ data: ads }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching ads:", error);
     return NextResponse.json(
       { message: "Internal server error", error: error.message },
       { status: 500 }

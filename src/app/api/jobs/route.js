@@ -8,6 +8,19 @@ import { NextResponse } from 'next/server';
 export async function GET(req, res) {
   await dbConnect();
 
+  try {
+    const jobs = await Job.find({});
+    // console.log(jobs);
+    return NextResponse.json(jobs);
+  } catch (error) {
+    console.error(error);
+    return new Response('Internal Server Error', { status: 500 });
+  }
+};
+
+export async function POST(req, res) {
+  await dbConnect();
+
 
   const cookieStore = await cookies();
   const Token = cookieStore.get("token")?.value;
@@ -32,18 +45,6 @@ export async function GET(req, res) {
     console.log('bad');
     return NextResponse.json({ error: "Access denied. Admins only." }, { status: 403 });
   }
-  try {
-    const jobs = await Job.find({});
-    // console.log(jobs);
-    return NextResponse.json(jobs);
-  } catch (error) {
-    console.error(error);
-    return new Response('Internal Server Error', { status: 500 });
-  }
-};
-
-export async function POST(req, res) {
-  await dbConnect();
 
   try {
     const body = await req.json();

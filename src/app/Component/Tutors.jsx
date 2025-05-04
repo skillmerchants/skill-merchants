@@ -9,7 +9,7 @@ const Tutors = () => {
     useEffect(() => {
         const fetchTutors = async () => {
             try {
-                const response = await fetch('/api/tutors'); // Replace with your API endpoint
+                const response = await fetch('/api/mentor'); // Replace with your API endpoint
                 const data = await response.json();
                 setTutors(data);
                 setLoading(false);
@@ -25,45 +25,86 @@ const Tutors = () => {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <p> Loading...</p>;
     }
     if (error) return <p className="text-center text-red-500">{ error}</p>;
     if (tutors.length === 0) {
-        return <p>No tutors available</p>;
-    }
+        return <p> No tutors available</p>;
+    };
     return (
-        <div className='flex flex-col items-center justify-center w-full bg-cyan-50 text-black p-10'>
-                                <div className='text-2xl font-bold text-blue-700 '>Mentor</div>
-                    <div className='text-lg'>A collaborative network of seasoned mentors</div>
-                    <div className='text-lg'>Book appointment with any of the experts for one-on-one conversations</div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            {tutors.map((tutor) => (
-                <div
-                    key={tutor.id}
-                    style={{
-                        border: '1px solid #ccc',
-                        borderRadius: '8px',
-                        padding: '16px',
-                        width: '300px',
-                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    }}
-                >
-                    <img
-                        src={tutor.image}
-                        alt={tutor.name}
-                        style={{ width: '100%', borderRadius: '8px' }}
-                    />
-                    <h3>{tutor.name}</h3>
-                    <p><strong>Course:</strong> {tutor.course}</p>
-                    <p><strong>Tutorial Info:</strong> {tutor.description}</p>
-                    <p><strong>Experience:</strong> {tutor.experience}</p>
-                    <p><strong>Service Duration:</strong> {tutor.duration}</p>
-                    <p><strong>Location:</strong> {tutor.location}</p>
-                    <p><strong>Salary:</strong> {tutor.salary}</p>
-                </div>
-            ))}
-        </div>
-        </div>
+<div className="bg-gray-100 w-full py-12 px-4 sm:px-6 lg:px-8">
+  <div className="container mx-auto">
+    {/* Heading and Description */}
+    <div className="text-center mb-12">
+      <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+        Meet Our Expert Mentors
+      </h1>
+      <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
+        Connect with our collaborative network of seasoned mentors. Book a one-on-one appointment with any of our experts to gain personalized insights and guidance tailored to your needs.
+      </p>
+    </div>
+
+    {/* Mentors Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tutors.length === 0 ? (
+        <p className="col-span-full text-center text-gray-500 text-lg font-medium">
+          No mentors available at the moment.
+        </p>
+      ) : (
+        tutors.map((tutor) => (
+          <div
+            key={tutor._id}
+            className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+          >
+            <h3 className="text-xl font-bold text-gray-900 truncate">
+              {tutor.name}
+            </h3>
+            <p className="mt-2 text-gray-600 line-clamp-3">
+              <span className="font-semibold">Tutorial Info:</span>{" "}
+              {tutor.description}
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Course:</span> {tutor.course}
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Experience:</span>{" "}
+              {tutor.experience} years
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Service Duration:</span>{" "}
+              {new Date(tutor.duration).toLocaleDateString()}
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Location:</span> {tutor.location}
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Salary:</span> ${tutor.salary}
+            </p>
+            <p className="mt-2 text-gray-600">
+              <span className="font-semibold">Availability:</span>{" "}
+              <span
+                className={
+                  tutor.availability ? "text-green-600" : "text-red-600"
+                }
+              >
+                {tutor.availability ? "Available" : "Not Available"}
+              </span>
+            </p>
+            <button
+              className="mt-4 w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
+              onClick={() => {
+                // Placeholder for booking logic
+                alert(`Book an appointment with ${tutor.name}`);
+              }}
+            >
+              Book Appointment
+            </button>
+          </div>
+        ))
+      )}
+    </div>
+  </div>
+</div>
         
     );
     return null;

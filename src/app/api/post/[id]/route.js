@@ -1,3 +1,9 @@
+import { NextResponse } from "next/server";
+import dbConnect from "@lib/dbConnect";
+import Ads from "@models/Ads";
+import mongoose from "mongoose";
+import { GridFSBucket } from "mongodb";
+import { Readable } from "stream";
 
 //   return new Response
 export async function PUT(request ,{ params }) {
@@ -32,73 +38,81 @@ export async function PUT(request ,{ params }) {
     }
 }
 
-export async function DELETE(request ,{ params }) {
+// Helper to delete a file from GridFS
+async function deleteFileFromGridFS(fileId) {
+  if (!mongoose.Types.ObjectId.isValid(fileId)) {
+    throw new Error("Invalid file ID");
+  }
+  const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
+  return bucket.delete(new mongoose.Types.ObjectId(fileId));
+};
+
+// DELETE handler: Delete an ad by ID
+export async function DELETE(req, { params }) {
+  try {
     await dbConnect();
-    try {
-        const id = (await params).id; // Extract the ad ID from the request query
-        console.log('Request body:', request.body);
-        // Validate input
-        if (!id) {
-            return NextResponse.json({ message: 'Ad ID is required' }, { status: 400 });
-        }
 
-        // Delete the ad
-        const deletedAd = await Ads.findByIdAndDelete(id);
+    const { id } = await params;
 
-        if (!deletedAd) {
-            return NextResponse.json({ message: 'Ad not found' }, { status: 404 });
-        }
-
-        return NextResponse.json({ message: 'Ad deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting ad:', error);
-        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: "Invalid ad ID" }, { status: 400 });
     }
+
+    // Find the ad
+    const ad = await Ads.findById(id);
+    if (!ad) {
+      return NextResponse.json({ message: "Ad not found" }, { status: 404 });
+    }
+
+    // Delete associated files from GridFS
+    if (ad.image) {
+      await deleteFileFromGridFS(ad.image);
+    }
+    if (ad.video) {
+      await deleteFileFromGridFS(ad.video);
+    }
+
+    // Delete the ad
+    await Ads.findByIdAndDelete(id);
+
+    return NextResponse.json({ message: "Ad deleted successfully" }, { status: 200 });
+  } catch (error) {
+    console.error("Error deleting ad:", error);
+    return NextResponse.json(
+      { message: "Internal server error", error: error.message },
+      { status: 500 }
+    );
+  }
 }
 
 
-export async function GET(request) {
-  await dbConnect();
 
+export async function GET(req, { params }) {
   try {
-    // Extract fileId from query parameters
-    const url = new URL(request.url);
-    const fileId = url.searchParams.get('fileId');
+    await dbConnect();
 
-    if (!fileId) {
-      return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
+    const fileId = new mongoose.Types.ObjectId(params.id);
+    const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
+
+    const files = await bucket.find({ _id: fileId }).toArray();
+    if (!files || files.length === 0) {
+      return NextResponse.json({ message: "File not found" }, { status: 404 });
     }
 
-    // Access the MongoDB database
-    const db = mongoose.connection.db;
-    const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: 'uploads' });
+    const file = files[0];
+    const downloadStream = bucket.openDownloadStream(fileId);
 
-    // Open a download stream for the file
-    const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(fileId));
-    const chunks = [];
-
-    // Collect all chunks into a buffer
-    for await (const chunk of downloadStream) {
-      chunks.push(chunk);
-    }
-
-    // Check if any data was collected
-    if (chunks.length === 0) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
-    }
-
-    // Combine chunks into a single buffer
-    const fileBuffer = Buffer.concat(chunks);
-
-    // Return the file as a response
-    return new NextResponse(fileBuffer, {
+    return new Response(downloadStream, {
       headers: {
-        'Content-Type': 'application/octet-stream',
-        'Content-Disposition': `attachment; filename="download"`, // Optional: Prompt download
+        "Content-Type": file.metadata.mimeType,
+        "Content-Disposition": `inline; filename="${file.filename}"`,
       },
     });
   } catch (error) {
-    console.error('Error downloading file:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Error fetching file:", error);
+    return NextResponse.json(
+      { message: "Internal server error", error: error.message },
+      { status: 500 }
+    );
   }
 }

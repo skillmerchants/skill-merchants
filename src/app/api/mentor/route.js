@@ -1,51 +1,120 @@
-import { NextResponse } from 'next/server';
-import dbConnect from '@lib/dbConnect';
-import mentor from '@models/mentor';
-export async function GET() {
-          await dbConnect();
-    
-    try {   
-        
-        const Mentor = await mentor.find().toArray(); // Exclude passwords for security
+import { NextResponse } from "next/server";
+import dbConnect from "@lib/dbConnect";
+import mentor from "@models/mentor";
 
-        return NextResponse.json({ success: true, data: Mentor, count: Mentor.length });
+// POST: Create a new mentor
+export async function POST(req) {
+  try {
+    await dbConnect();
 
-    } catch (error) {
-        return NextResponse.json({
-            success: false,
-            message: 'Failed to fetch mentors information.',
-            error: error.message,
-        }, { status: 500 });
+    const body = await req.json();
+    const {
+      name,
+      description,
+      course,
+      location,
+      salary,
+      duration,
+      availability,
+      experience,
+    } = body;
+
+    // Validate input
+    if (
+      !name ||
+      !description ||
+      !course ||
+      !location ||
+      !salary ||
+      !duration ||
+      availability === undefined ||
+      !experience
+    ) {
+      return NextResponse.json(
+        { message: "All fields are required" },
+        { status: 400 }
+      );
     }
+
+    // Validate types
+    if (isNaN(salary) || salary < 0) {
+      return NextResponse.json(
+        { message: "Salary must be a valid non-negative number" },
+        { status: 400 }
+      );
+    }
+    if (isNaN(experience) || experience < 0) {
+      return NextResponse.json(
+        { message: "Experience must be a valid non-negative number" },
+        { status: 400 }
+      );
+    }
+    if (!["true", "false", true, false].includes(availability)) {
+      return NextResponse.json(
+        { message: "Availability must be a boolean" },
+        { status: 400 }
+      );
+    }
+    
+
+    // Create new mentor
+    const newMentor = new mentor({
+      name,
+      description,
+      course,
+      location,
+      salary: Number(salary),
+      duration,
+      availability: Boolean(availability),
+      experience: Number(experience),
+    });
+
+    await newMentor.save();
+
+    return NextResponse.json(
+      { message: "Mentor created successfully", data: mentor },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creating mentor:", error);
+    return NextResponse.json(
+      { message: "Internal server error", error: error.message },
+      { status: 500 }
+    );
+  }
 }
 
-
-export async function POST(request) {
+// GET: Retrieve all mentors or a single mentor by ID
+export async function GET(req) {
+  try {
     await dbConnect();
-    try {
-        const body = await request.json();
-        const { name, email, phone, location, imageUrl } = body;
-        console.log('Request body:', body);
 
-        // Validate input
-        if (!name || !email || !phone || !location || !imageUrl) {
-            return NextResponse.json({ message: 'Name, email, phone, location, and image URL are required' }, { status: 400 });
-        }
+    // const { searchParams } = new URL(req.url);
+    // const id = searchParams.get("id");
 
-        // Create a new ad
-        const newMentor = new mentor({
-            name,
-            email,
-            phone,
-            location,
-            imageUrl,
-        });
+    // if (id) {
+    //   // Validate ObjectId
+    //   if (!mongoose.Types.ObjectId.isValid(id)) {
+    //     return NextResponse.json({ message: "Invalid mentor ID" }, { status: 400 });
+    //   }
 
-        await newMentor.save();
-        console.log('Mentor created successfully:', newMentor);
-        return NextResponse.json({ message: 'Mentor created successfully', data: newMentor }, { status: 201 });
-    } catch (error) {
-        console.error('Error creating Mentor:', error);
-        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-    }
+    //   // Get single mentor
+    //   const mentor = await Mentor.findById(id).lean();
+    //   if (!mentor) {
+    //     return NextResponse.json({ message: "Mentor not found" }, { status: 404 });
+    //   }
+
+    //   return NextResponse.json({ data: mentor }, { status: 200 });
+    // }
+
+    // Get all mentors
+    const mentors = await mentor.find({});
+    return NextResponse.json( mentors );
+  } catch (error) {
+    console.error("Error fetching mentors:", error);
+    return NextResponse.json(
+      { message: "Internal server error", error: error.message },
+      { status: 500 }
+    );
+  }
 }

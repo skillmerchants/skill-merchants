@@ -36,13 +36,13 @@ export default function UploadAdForm() {
         },
       });
 
+      setAdDetails({ title: "", description: "", link: "" });
+      setImage(null);
+      setVideo(null);
+      document.getElementById("image").value = "";
+      document.getElementById("video").value = "";
       if (response.status === 200) {
         setSuccess("Ad created successfully");
-        setAdDetails({ title: "", description: "", link: "" });
-        setImage(null);
-        setVideo(null);
-        document.getElementById("image").value = "";
-        document.getElementById("video").value = "";
       } else {
         setError(response.data.message || "Failed to upload ad");
       }

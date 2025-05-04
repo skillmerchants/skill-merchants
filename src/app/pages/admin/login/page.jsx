@@ -15,7 +15,7 @@ export default function AdminLogin() {
       // Perform login logic here (e.g., call an API route)
       console.log({ email, password });
       
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/adminlogin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

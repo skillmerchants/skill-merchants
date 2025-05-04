@@ -6,6 +6,7 @@ const Ads = () => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deletingId, setDeletingId] = useState(null); // State for delete operation
 
   useEffect(() => {
     const fetchAds = async () => {
@@ -28,6 +29,29 @@ const Ads = () => {
 
     fetchAds();
   }, []);
+
+
+  // Handle ads deletion
+  const handleDelete = async (_id) => {
+    setDeletingId(_id);
+
+    try {
+      const response = await fetch(`/api/post/${_id}`, { method: "DELETE" });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete ads");
+      }
+
+      // Update jobs state to remove the deleted job
+      setAds((prevAds) => prevAds.filter((ads) => ads._id !== _id));
+    } catch (err) {
+      console.error("Error deleting ads:", err);
+      setError(err.message || "Failed to delete ads");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
 
   const handleMouseEnter = (event) => {
     const video = event.currentTarget.querySelector("video");
@@ -62,19 +86,7 @@ const Ads = () => {
   console.log("ads:", ads);
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  {/* Heading and Description */}
-  <div className="text-center mb-12">
-    <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-      Explore Our Advertisements
-    </h1>
-    <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
-      Discover a curated selection of promotions and offers from our partners. Browse through engaging ads to find products, services, and opportunities that spark your interest.
-    </p>
-  </div>
-
-  {/* Ads Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
       {ads.length === 0 ? (
         <p className="text-center text-gray-600">No ads found.</p>
       ) : (
@@ -112,6 +124,14 @@ const Ads = () => {
             <div className="p-4">
               <h3 className="text-lg font-semibold">{ad.title}</h3>
               <p className="text-gray-600">{ad.description}</p>
+              <p className="text-sm text-gray-500 mt-4">{  (new Date(ad.createdAt).toDateString()) }</p>
+              <button
+                onClick={() => handleDelete(ad._id)}
+                disabled={deletingId === ad._id}
+                className="px-4 py-2 mx-7 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none"
+              >
+                {deletingId === ad._id ? "Deleting..." : "Delete"}
+              </button>
               {ad.link && (
                 <a
                   href={ad.link}
@@ -121,12 +141,12 @@ const Ads = () => {
                 >
                   Visit
                 </a>
+                
               )}
             </div>
           </div>
         ))
       )}
-    </div> 
     </div>
   );
 };

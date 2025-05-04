@@ -32,10 +32,10 @@ const AdminNav = () => {
                         <button onClick={() => router.push("/pages/admin/dashboard/jobs")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Job</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="about"><p className='text-white'>Mentor</p></Link>
+                        <button onClick={() => router.push("/pages/admin/dashboard/mentor")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Mentor</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <button onClick={() => router.push("/pages/admin/dashboard/adsPost")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Ads</p></button>
+                        <button onClick={() => router.push("/pages/admin/dashboard/ads")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Ads</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
                         <Link href="#services"><p className='text-white'>Services</p></Link>
