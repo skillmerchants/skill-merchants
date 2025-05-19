@@ -1,11 +1,13 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import { useRouter } from "next/navigation";
 
 const Tutors = () => {
     const [tutors, setTutors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const router = useRouter();
     useEffect(() => {
         const fetchTutors = async () => {
             try {
@@ -32,10 +34,10 @@ const Tutors = () => {
         return <p> No tutors available</p>;
     };
     return (
-<div className="bg-gray-100 w-full py-12 px-4 sm:px-6 lg:px-8">
+<div className="bg-gray-100 w-full py-12 px-4 sm:px-6 lg:px-8" id='mentors'>
   <div className="container mx-auto">
     {/* Heading and Description */}
-    <div className="text-center mb-12">
+    <div className="text-center mb-12" >
       <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
         Meet Our Expert Mentors
       </h1>
@@ -92,10 +94,7 @@ const Tutors = () => {
             </p>
             <button
               className="mt-4 w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
-              onClick={() => {
-                // Placeholder for booking logic
-                alert(`Book an appointment with ${tutor.name}`);
-              }}
+              onClick={() => router.push(`/pages/tutor/${tutor._id}`)}
             >
               Book Appointment
             </button>

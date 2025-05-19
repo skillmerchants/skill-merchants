@@ -1,12 +1,36 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@lib/dbConnect";
 import mentor from "@models/mentor";
+import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
 
 // POST: Create a new mentor
 export async function POST(req) {
   try {
     await dbConnect();
+ const cookieStore = await cookies();
+  const Token = cookieStore.get("token")?.value;
+  console.log('token:' ,Token);
+  if (!Token) {
+    return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+  }
 
+  // Verify JWT
+  const token = Token;
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
+  }
+
+  // Check if user is admin
+  if (!decoded.isAdmin) {
+    console.log('bad');
+    return NextResponse.json({ error: "Access denied. Admins only." }, { status: 403 });
+  }
     const body = await req.json();
     const {
       name,
@@ -17,6 +41,7 @@ export async function POST(req) {
       duration,
       availability,
       experience,
+      link,
     } = body;
 
     // Validate input
@@ -26,6 +51,7 @@ export async function POST(req) {
       !course ||
       !location ||
       !salary ||
+      !link ||
       !duration ||
       availability === undefined ||
       !experience
@@ -67,6 +93,7 @@ export async function POST(req) {
       duration,
       availability: Boolean(availability),
       experience: Number(experience),
+      link,
     });
 
     await newMentor.save();

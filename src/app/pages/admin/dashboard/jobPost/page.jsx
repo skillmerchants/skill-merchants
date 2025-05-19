@@ -1,9 +1,10 @@
 // app/admin/post-job/page.jsx
 'use client'; // This is a client-side component
-
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function PostJob() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -50,10 +51,15 @@ export default function PostJob() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
+    <div className=" flex items-center justify-center bg-white ">
+      <div className="w-full max-w-3xl p-8 bg-white  rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Post a New Job</h1>
-
+        <button
+          onClick={() => router.back()}
+          className="my-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+        >
+          ← Go back to Jobs
+        </button>
         {/* Success Message */}
         {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
 

@@ -90,6 +90,10 @@ export default function PostJob({ params }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
+        ← Back to Job Listings
+
+      </button>
       <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           {id ? 'Edit Job' : 'Post a New Job'}

@@ -83,7 +83,14 @@ export default function UserSignup() {
               required
             />
           </div>
-
+            <div>
+              <input type="checkbox" required name="terms" id="terms" />
+              <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+                <button onClick={() => router.push("/pages/terms")} className="hover:text-blue-600">
+              I agree to the Terms & Privacy
+            </button>
+              </label>
+            </div>
           {/* Submit Button */}
           <button
             type="submit"
@@ -92,13 +99,12 @@ export default function UserSignup() {
             Signup
           </button>
         </form>
-
-        {/* Login Link */}
+ 
         <div className="text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link href="/pages/users/login" className="text-blue-600 hover:underline">
+          <button onClick={() => router.push("/pages/users/login")} className="text-blue-600 hover:underline">
             Login here
-          </Link>
+          </button>
         </div>
       </div>
     </div>

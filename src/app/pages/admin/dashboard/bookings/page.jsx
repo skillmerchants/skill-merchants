@@ -4,45 +4,34 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Dashboard() {
+export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
   const [mentors, setMentors] = useState({}); // Store mentors by ID
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [noBookings, setNoBookings] = useState(false); // New state for empty bookings
   const router = useRouter();
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch("/api/booking/user", { credentials: "include" });
-        if (response.status === 401 || response.status === 403) {
+        const response = await fetch("/api/booking");
+        if (response.status === 401) {
           router.push("/pages/users/login");
           return;
         }
         if (!response.ok) throw new Error("Failed to fetch bookings");
         const result = await response.json();
-
-        if (!result.data || result.data.length === 0) {
-          setBookings([]);
-          setNoBookings(true);
-          setLoading(false);
-          return;
-        }
-
-        setBookings(result.data);
-        setNoBookings(false);
-
+        console.log(result);
+        setBookings(result.data || []);
         // Extract unique mentor IDs
-        const mentorIds = [...new Set(result.data.map((booking) => booking.mentorId))];
-        if (mentorIds.length > 0) {
-          await fetchMentors(mentorIds);
-        }
+        const mentorIds = [
+          ...new Set(result.data.map((booking) => booking.mentorId)),
+        ];
+ 
+        await fetchMentors(mentorIds);
       } catch (error) {
         console.error("Error fetching bookings:", error);
         setError("Failed to load bookings");
-        setBookings([]);
-        setNoBookings(true);
       } finally {
         setLoading(false);
       }
@@ -51,7 +40,7 @@ export default function Dashboard() {
     const fetchMentors = async (mentorIds) => {
       try {
         const mentorPromises = mentorIds.map(async (id) => {
-          const response = await fetch(`/api/mentor/${id}`, { credentials: "include" });
+          const response = await fetch(`/api/mentor/${id}`);
           if (!response.ok) throw new Error(`Failed to fetch mentor ${id}`);
           const result = await response.json();
           return { id, data: result.data || result };
@@ -62,6 +51,7 @@ export default function Dashboard() {
           acc[id] = data;
           return acc;
         }, {});
+        console.log(mentorResults);
         setMentors(mentorsData);
       } catch (error) {
         console.error("Error fetching mentors:", error);
@@ -72,6 +62,28 @@ export default function Dashboard() {
     fetchBookings();
   }, [router]);
 
+  const updateStatus = async (bookingId, status) => {
+    try {
+      const response = await fetch(`/api/booking/${bookingId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to update status");
+      const result = await response.json();
+      setBookings((prev) =>
+        prev.map((b) =>
+          b._id === bookingId ? { ...b, paymentStatus: result.data.paymentStatus } : b
+        )
+      );
+      alert("Payment status updated successfully");
+    } catch (error) {
+      console.error("Error updating status:", error);
+      alert("Failed to update payment status");
+    }
+  };
+
   if (loading) {
     return <p className="text-center text-gray-600 py-12">Loading...</p>;
   }
@@ -79,63 +91,48 @@ export default function Dashboard() {
   if (error) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600 mb-4">{error}</p>
-        <div className="space-x-4">
-          <button
-            onClick={() => {
-              setLoading(true);
-              setError(null);
-              fetchBookings();
-            }}
-            className="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Retry
-          </button>
-          <Link
-            href="/#mentors"
-            className="inline-block px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-          >
-            Browse Mentors
-          </Link>
-        </div>
+        <p className="text-red-600">{error}</p>
+        <button
+          
+          className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              onClick={() => router.push('/pages/admin/login')}
+
+        >
+          Sign In
+        </button>
       </div>
     );
   }
 
   return (
     <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-            Your Bookings
+            Admin: All Bookings
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
-            View all your booked appointments with mentors, including payment status.
+            Manage all bookings and approve payments.
           </p>
-          <Link
-            href="/#mentors"
-            className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          <button
+            onClick={() => router.back()}
+            className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
           >
-            Browse Mentors
-          </Link>
+            ← Go to User Dashboard
+          </button>
         </div>
 
-        {noBookings ? (
-          <div className="text-center py-8">
-            <p className="text-gray-600 text-lg mb-4">You haven't booked any appointments yet.</p>
-            <Link
-              href="/#mentors"
-              className="inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Book a Mentor
-            </Link>
-          </div>
+        {bookings.length === 0 ? (
+          <p className="text-center text-gray-600 text-lg">No bookings found.</p>
         ) : (
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      User
+                    </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Mentor
                     </th>
@@ -152,7 +149,13 @@ export default function Dashboard() {
                       Amount
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Payment Status
+                      Payment Proof
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -161,7 +164,10 @@ export default function Dashboard() {
                     const mentor = mentors[booking.mentorId] || {};
                     return (
                       <tr key={booking._id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {booking.userName || "N/A"}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {booking.mentorName || mentor.name || "N/A"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -186,6 +192,17 @@ export default function Dashboard() {
                           ).toFixed(2)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">
+                            <button
+                              onClick={() => router.push(`/pages/admin/dashboard/bookings/${booking._id}`)}
+                              className="text-indigo-600 hover:text-indigo-800"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View more
+                            </button>
+                         
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
                           <span
                             className={
                               booking.paymentStatus === "confirmed"
@@ -198,6 +215,18 @@ export default function Dashboard() {
                                 booking.paymentStatus.slice(1)
                               : "N/A"}
                           </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          {booking.paymentStatus === "pending" ? (
+                            <button
+                              onClick={() => updateStatus(booking._id, "confirmed")}
+                              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                              Confirm Payment
+                            </button>
+                          ) : (
+                            <span className="text-gray-500">Confirmed</span>
+                          )}
                         </td>
                       </tr>
                     );

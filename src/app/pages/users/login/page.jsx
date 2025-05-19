@@ -29,7 +29,7 @@ export default function UserLogin() {
   console.log('Login successful') 
       localStorage.setItem('token', data.token);
        // Save token in localStorage
-    router.push('/pages/users/dashboard'); // Redirect to profile page
+    router.push('/'); // Redirect to profile page
 
    }
   } catch (error) {
@@ -85,7 +85,14 @@ export default function UserLogin() {
                 required
               />
             </div>
-  
+              <div>
+              <input type="checkbox" required name="terms" id="terms" />
+              <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+                <button onClick={() => router.push("/pages/terms")} className="hover:text-blue-600">
+              I agree to the Terms & Privacy
+            </button>
+              </label>
+            </div>
             {/* Submit Button */}
             <button
               type="submit"
@@ -97,12 +104,13 @@ export default function UserLogin() {
   
           {/* Additional Links */}
           <div className="flex items-center justify-between text-sm text-gray-600">
-            <Link href="/user/forgot-password" className="hover:text-blue-600">
+            <button onClick={() => router.push("/pages/users/forgot-password")} className="hover:text-blue-600">
               Forgot Password?
-            </Link>
-            <Link href="/pages/users/singup" className="hover:text-blue-600">
+            </button>
+            <button onClick={() => router.push("/pages/users/singup")} className="hover:text-blue-600">
               Create an Account
-            </Link>
+
+            </button>
           </div>
         </div>
       </div>

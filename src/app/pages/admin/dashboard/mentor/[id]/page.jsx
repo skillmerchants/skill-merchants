@@ -17,6 +17,7 @@ const Mentors = () => {
     duration: "",
     availability: true,
     experience: "",
+    link: "",
   });
   const [editId, setEditId] = useState(null);
   const nameInputRef = useRef(null); // Ref for the Name input
@@ -80,6 +81,7 @@ const Mentors = () => {
         duration: "",
         availability: true,
         experience: "",
+        link: "",
       });
       setEditId(null);
 
@@ -102,6 +104,7 @@ const Mentors = () => {
       course: mentor.course,
       location: mentor.location,
       salary: mentor.salary,
+      link: mentor.link,
       duration: new Date(mentor.duration).toISOString().split("T")[0], // Format for date input
       availability: mentor.availability,
       experience: mentor.experience,
@@ -140,6 +143,9 @@ const Mentors = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
+        ← Back to Mentor Listings
+      </button>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold text-gray-900 mb-6 text-center">
           Manage Mentors
@@ -244,6 +250,23 @@ const Mentors = () => {
             </div>
             <div>
               <label
+                htmlFor="link"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Link
+              </label>
+              <input
+                type="date"
+                id="duration"
+                name="duration"
+                value={formData.link}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="experience"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -317,6 +340,7 @@ const Mentors = () => {
                     duration: "",
                     availability: true,
                     experience: "",
+                    link : "",
                   });
                 }}
                 className="px-4 py-2 bg-gray-500 text-white rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
@@ -350,6 +374,9 @@ const Mentors = () => {
                 </p>
                 <p className="mt-1">
                   <strong>Location:</strong> {mentor.location}
+                </p>
+                <p className="mt-1">
+                  <strong>Link:</strong> {mentor.link}
                 </p>
                 <p className="mt-1">
                   <strong>Salary:</strong> ${mentor.salary}

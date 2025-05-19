@@ -62,12 +62,21 @@ export default function JobsPage() {
     <div className="p-8 bg-gray-100 w-full min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-8">Web Development Intern</h1>
       <h1 className="text-xl font-bold text-center mb-8">Tech Solutions Inc</h1>
-      <button
-        onClick={() => router.push("/pages/admin/dashboard/jobPost")}
-        className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
-      >
+      <div className="flex justify-between mb-8">
+        <button
+          onClick={() => router.back()}
+          className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+        >
+          ← Go to User Dashboard
+        </button>
+        <button
+          onClick={() => router.push("/pages/admin/dashboard/jobPost")}
+          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+        >
         Post Job
       </button>
+
+      </div>
       <h1 className="font-bold text-center mb-8">Job Listings</h1>
 
       {/* Error Message */}

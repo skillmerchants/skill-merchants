@@ -4,6 +4,9 @@ import Ads from "@models/Ads";
 import mongoose from "mongoose";
 import { GridFSBucket } from "mongodb";
 import { Readable } from "stream";
+import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
+
 
 // Helper to upload file buffer to GridFS
 async function uploadFileToGridFS(buffer, filename, mimeType) {
@@ -29,7 +32,29 @@ export async function POST(req) {
   try {
     // Connect to MongoDB
     await dbConnect();
+const cookieStore = await cookies();
+  const Token = cookieStore.get("token")?.value;
+  console.log('token:' ,Token);
+  if (!Token) {
+    return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+  }
 
+  // Verify JWT
+  const token = Token;
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
+  }
+
+  // Check if user is admin
+  if (!decoded.isAdmin) {
+    console.log('bad');
+    return NextResponse.json({ error: "Access denied. Admins only." }, { status: 403 });
+  }
     // Parse form data using NextRequest's formData()
     const formData = await req.formData();
 
@@ -107,6 +132,24 @@ export async function POST(req) {
 export async function GET() {
   try {
     await dbConnect();
+         const cookieStore = await cookies();
+       const Token = cookieStore.get("token")?.value;
+       console.log('token:' ,Token);
+       if (!Token) {
+         return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+       }
+     
+       // Verify JWT
+       const token = Token;
+     
+       let decoded;
+       try {
+         decoded = jwt.verify(token, process.env.JWT_SECRET);
+       } catch (err) {
+         console.log(err);
+         return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
+       }
+     
     const ads = await Ads.find().lean();
     console.log(ads); // Fetch all ads
     return NextResponse.json({ data: ads }, { status: 200 });

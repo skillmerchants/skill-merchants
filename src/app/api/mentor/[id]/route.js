@@ -21,6 +21,7 @@ export async function PUT(req, { params }) {
       duration,
       availability,
       experience,
+      link,
     } = body;
 
     // Validate input (allow partial updates)
@@ -45,6 +46,7 @@ export async function PUT(req, { params }) {
       ...(name && { name }),
       ...(description && { description }),
       ...(course && { course }),
+      ...(link && { link }),
       ...(location && { location }),
       ...(salary !== undefined && { salary: Number(salary) }),
       ...(duration && { duration}),

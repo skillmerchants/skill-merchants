@@ -12,6 +12,7 @@ const CreateMentor = () => {
     duration: "",
     availability: true,
     experience: "",
+    link: "",
   });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -58,6 +59,7 @@ const CreateMentor = () => {
         duration: "",
         availability: true,
         experience: "",
+        link: "",
       });
     } catch (err) {
       setError(err.message);
@@ -69,6 +71,9 @@ const CreateMentor = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
+        ← Back to Mentor Listings
+      </button>
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -213,6 +218,19 @@ const CreateMentor = () => {
               />
               <label htmlFor="availability" className="ml-2 block text-sm text-gray-900">
                 Available
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="link"
+                name="link"
+                type="url"
+                checked={formData.link}
+                onChange={handleChange}
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label htmlFor="link" className="ml-2 block text-sm text-gray-900">
+                class or group link
               </label>
             </div>
           </div>

@@ -15,6 +15,10 @@ const Ads = () => {
           throw new Error("Failed to fetch ads");
         }
         const result = await response.json();
+       if (response.status === 401 || response.status === 403) {
+        router.push('/pages/users/login');
+        return;
+      }
         console.log("API response:", result); // Debug response
         // Extract the 'data' array from response
         setAds(Array.isArray(result.data) ? result.data : []);
@@ -64,7 +68,7 @@ const Ads = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
   {/* Heading and Description */}
-  <div className="text-center mb-12">
+  <div className="text-center mb-12" id="ads">
     <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
       Explore Our Advertisements
     </h1>

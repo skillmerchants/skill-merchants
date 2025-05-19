@@ -13,6 +13,9 @@ export default async function JobDetails({ params }) {
  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100" >
+      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
+        ← Back to Job Listings
+      </button>
       <div className="bg-white rounded-lg shadow-md p-6 max-w-lg w-full">
         <h2 className="text-xl font-semibold text-gray-800">{job.title}</h2>
         <p className="text-gray-600 mt-2">{job.company}</p>

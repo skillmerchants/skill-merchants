@@ -16,7 +16,7 @@ import Link from 'next/link';
 <div className="bg-gray-100 py-12 px-4 w-full sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto">
         {/* Heading, Subtitle, and Description */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12" id="job">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
             Explore Exciting Job Opportunities
           </h1>

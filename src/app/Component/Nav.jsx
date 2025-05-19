@@ -1,11 +1,10 @@
 "use client"
 // import { Link } from 'react-router-dom';
-import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaBars, FaTimes,  } from "react-icons/fa";
-
+import { useRouter } from "next/navigation";
 const Nav = () => {
-    
+        const router = useRouter();
         const [isOpen, setIsOpen] = useState(false);
       
         const toggleMenu = () => {
@@ -26,23 +25,20 @@ const Nav = () => {
                 </div>
                 <div className="md:flex hidden text-center items-center text-white gap-8 mx-18 font-[500] text-[12px] my-2">
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="/"><p className='text-white'>Home</p></Link>
+                        <button onClick={() => router.push("/pages/users/dashboard")}><p className='text-white'>Dashboard</p> </button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="about"><p className='text-white'>About</p></Link>
+                        <button onClick={() => router.push("#mentors")}><p className='text-white'>Mentors</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="opportunities"><p className='text-white'>Opportunities</p></Link>
+                        <button onClick={() => router.push("#job")}><p className='text-white'>Jobs</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="#services"><p className='text-white'>Services</p></Link>
-                    </div>
+                    <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>                    </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="pricing"><p className='text-white'>Pricing</p></Link>
-                    </div>
+                    <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>                    </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="contact"><p className='text-white'>Contact</p></Link>
-                    </div>
+                    <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>                    </div>
                 </div>
                 <button className="md:hidden" onClick={toggleMenu}>
           {isOpen ? (
@@ -58,22 +54,19 @@ const Nav = () => {
                 gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
             >
                 <div className="text-white text-xl pr-5">
-                    <Link href="/"><p className='text-white'>Home</p></Link>
+                <button onClick={() => router.push("#ads")}><p className='text-white'>Ads</p></button>                </div>
+                <div className="text-white text-xl pr-5">
+                <button onClick={() => router.push("#mentors")}><p className='text-white'>Mentors</p></button>                </div>
+                <div className="text-white text-xl pr-5">
+                <button onClick={() => router.push("#job")}><p className='text-white'>Jobs</p></button>                </div>
+                <div className="text-white text-xl pr-5">
+                    <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="@app/pages/admin/login"><p className='text-white'>About</p></Link>
+                    <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="opportunities"><p className='text-white'>Opportunities</p></Link>
-                </div>
-                <div className="text-white text-xl pr-5">
-                    <Link href="#services"><p className='text-white'>Services</p></Link>
-                </div>
-                <div className="text-white text-xl pr-5">
-                    <Link href="pricing"><p className='text-white'>Pricing</p></Link>
-                </div>
-                <div className="text-white text-xl pr-5">
-                    <Link href="Contact"><p className='text-white'>Contact</p></Link>
+                    <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>
                 </div>
             </div>
         </nav>

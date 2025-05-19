@@ -36,6 +36,12 @@ const Tutors = () => {
                                 <div className='text-2xl font-bold text-blue-700 '>Mentor</div>
                     <div className='text-lg'>A collaborative network of seasoned mentors</div>
                     <div className='text-lg'>Book appointment with any of the experts for one-on-one conversations</div>
+                    <button
+          onClick={() => router.back()}
+          className="my-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+        >
+          ← Go to User Dashboard
+        </button>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {tutors.map((tutor) => (
                 <div
@@ -56,6 +62,7 @@ const Tutors = () => {
                     <p><strong>Service Duration:</strong> {tutor.duration}</p>
                     <p><strong>Location:</strong> {tutor.location}</p>
                     <p><strong>Salary:</strong> {tutor.salary}</p>
+                    <p><strong>Salary:</strong> {tutor.link}</p>
                     <p><strong>Availability:</strong> {tutor.availability ? 'Available' : 'Not Available'}</p>
                     <button
                 onClick={() => router.push(`/pages/admin/dashboard/mentor/${tutor._id}`)}

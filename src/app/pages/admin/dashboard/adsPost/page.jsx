@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 export default function UploadAdForm() {
   const [adDetails, setAdDetails] = useState({ title: "", description: "", link: "" });
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -53,7 +53,17 @@ export default function UploadAdForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className=" p-6 bg-white ">
+            <div className="flex justify-between mb-8">
+       
+        <button
+          onClick={() => router.back()}
+          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+        >
+        ← Go back to Ad
+      </button>
+
+      </div>
       <h2 className="text-2xl font-bold text-center mb-6">Upload an Ad</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {success && <p className="text-green-500 mb-4">{success}</p>}

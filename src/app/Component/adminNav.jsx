@@ -38,13 +38,16 @@ const AdminNav = () => {
                         <button onClick={() => router.push("/pages/admin/dashboard/ads")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Ads</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="#services"><p className='text-white'>Services</p></Link>
+                        <button onClick={() => router.push("/pages/admin/dashboard/bookings")}><p className=' hover:border-2 border-white text-white px-3 rounded-md '>Bookings</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="pricing"><p className='text-white'>Pricing</p></Link>
+                        <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>
                     </div>
                     <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <Link href="contact"><p className='text-white'>Contact</p></Link>
+                        <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>
+                    </div>
+                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
+                        <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>
                     </div>
                 </div>
                 <button className="md:hidden" onClick={toggleMenu}>
@@ -61,22 +64,22 @@ const AdminNav = () => {
                 gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
             >
                 <div className="text-white text-xl pr-5">
-                    <Link href="/"><p className='text-white'>Job</p></Link>
+                    <button onClick={() => router.push("/pages/admin/dashboard/jobs")}><p className='text-white'>Job</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="@app/pages/admin/login"><p className='text-white'>Mentor</p></Link>
+                    <button onClick={() => router.push("/pages/admin/dashboard/mentor")}><p className='text-white'>Mentor</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="opportunities"><p className='text-white'>Ads</p></Link>
+                    <button onClick={() => router.push("/pages/admin/dashboard/ads")}><p className='text-white'>Ads</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="#services"><p className='text-white'>Services</p></Link>
+                    <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="pricing"><p className='text-white'>Pricing</p></Link>
+                    <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>
                 </div>
                 <div className="text-white text-xl pr-5">
-                    <Link href="Contact"><p className='text-white'>Contact</p></Link>
+                    <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>
                 </div>
             </div>
         </nav>

@@ -11,8 +11,10 @@ const mentorSchema = new mongoose.Schema({
   availability: { type: Boolean, required: true },
   experience: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
+  link: { type: String, required: true },
 });
 
 const mentor = mongoose.models.mentor || mongoose.model('mentor', mentorSchema);
 
 export default mentor;
+
