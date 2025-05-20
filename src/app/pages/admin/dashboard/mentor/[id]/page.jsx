@@ -239,7 +239,7 @@ const Mentors = () => {
                 Duration
               </label>
               <input
-                type="date"
+                type="number"
                 id="duration"
                 name="duration"
                 value={formData.duration}

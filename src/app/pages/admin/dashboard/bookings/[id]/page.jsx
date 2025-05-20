@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
 import { use } from "react";
-import nodemailer from "nodemailer";
 
 export default function BookingDetails({params}) {
   const [booking, setBooking] = useState(null);
@@ -83,42 +81,19 @@ export default function BookingDetails({params}) {
     };
   }, [bookingId, router]);
 
-    const updateStatus = async (bookingId, status ,link , userEmail) => {
+    const updateStatus = async (bookingId, status , link , userEmail , userName , mentorName , course) => {
+        console.log( link , userEmail , userName , mentorName , course);
+
     try {
       const response = await fetch(`/api/booking/${bookingId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status , link , userEmail , userName , mentorName , course}),
         credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to update status");
 
 
-         // // Send confirmation email
-          const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: process.env.EMAIL_USER,
-              pass: process.env.EMAIL_PASS,
-            },
-          });
-      await transporter.sendMail({
-        to: userEmail,
-        subject: `Appointment Confirmation with ${mentor.name}`,
-        html: `
-          <h2>Appointment Confirmation</h2>
-          <p>Dear ${booking.userName},</p>
-          <p>Your appointment with ${mentor.name} has been booked and is pending payment confirmation.</p>
-          <p><strong>Details:</strong></p>
-          <ul>
-            <li><strong>Time:</strong> ${booking.appointmentTime}</li>
-            <li><strong>Duration:</strong> ${booking.durationMonths} month(s)</li>
-            <h1><strong>Join the group to start receiving your class: </strong> ${link}</h1>
-            <li><strong>Payment Status:</strong> confirmed</li>
-          </ul>
-
-        `,
-      });
       const result = await response.json();
        setBooking((prev) =>
          prev
@@ -247,7 +222,7 @@ export default function BookingDetails({params}) {
               <p className="mt-2 ">
                 {booking.paymentStatus === "pending" ? (
                             <button
-                              onClick={() => updateStatus(booking._id, "confirmed" , mentor.link , booking.userEmail )}
+                              onClick={() => updateStatus(booking._id, "confirmed" , mentor.link , booking.userEmail ,booking.userName ,booking.mentorName , mentor.course)}
                               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
                               Confirm Payment

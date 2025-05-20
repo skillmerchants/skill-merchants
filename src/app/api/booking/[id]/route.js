@@ -5,11 +5,12 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { GridFSBucket } from "mongodb";
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
 
 export async function PATCH(request, { params }) {
   try {
     await dbConnect();
-    const { status } = await request.json();
+    const { status , link , userEmail , userName , mentorName , course } = await request.json();
     if (!["pending", "confirmed"].includes(status)) {
       return NextResponse.json({ message: "Invalid status" }, { status: 400 });
     }
@@ -22,6 +23,30 @@ export async function PATCH(request, { params }) {
       return NextResponse.json({ message: "Booking not found" }, { status: 404 });
     }
     
+         // // Send confirmation email
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: process.env.EMAIL_USER,
+              pass: process.env.EMAIL_PASS,
+            },
+          });
+      await transporter.sendMail({
+        to: userEmail,
+        subject: `Appointment Confirmed`,
+        html: `
+          <h2>Appointment Confirmation</h2>
+          <p>Dear ${userName},</p>
+          <p>Your appointment with ${mentorName} has been confirmed.</p>
+          <p><strong>Details: ${course} </strong></p>
+          <ul>
+  
+            <h1><strong>Join the group to start receiving your class: </strong> ${link}</h1>
+            <li><strong>Payment Status:</strong> confirmed</li>
+          </ul>
+
+        `,
+      });
     return NextResponse.json({ data: booking }, { status: 200 });
   } catch (error) {
     console.error("Error updating booking status:", error);
