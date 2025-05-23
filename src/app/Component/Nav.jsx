@@ -17,56 +17,56 @@ const Nav = () => {
           }
         };
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50">
-            <div className="flex justify-between bg-black p-1 align-items-lg-center">
+        <nav className="fixed  top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
                 <div className="flex items-center gap-3 mx-15 my-2">
-                   
-                    <h2 className="text-white font-[700]">Skill Merchants</h2>
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black font-[700]">Skill Merchants</h2>
                 </div>
-                <div className="md:flex hidden text-center items-center text-white gap-8 mx-18 font-[500] text-[12px] my-2">
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <button onClick={() => router.push("/pages/users/dashboard")}><p className='text-white'>Dashboard</p> </button>
+                <div className="md:flex hidden text-center items-center text-black gap-8 mx-18 font-[500] text-[12px] my-2">
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                        <button onClick={() => router.push("/pages/users/dashboard")}><p className='text-black'>Dashboard</p> </button>
                     </div>
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <button onClick={() => router.push("#mentors")}><p className='text-white'>Mentors</p></button>
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                        <button onClick={() => router.push("#mentors")}><p className='text-black'>Mentors</p></button>
                     </div>
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                        <button onClick={() => router.push("#job")}><p className='text-white'>Jobs</p></button>
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                        <button onClick={() => router.push("#job")}><p className='text-black'>Jobs</p></button>
                     </div>
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                    <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>                    </div>
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                    <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>                    </div>
-                    <div className="black hover:text-white p-2 rounded-md text-center items-center">
-                    <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>                    </div>
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                    <button onClick={() => router.push("/pages/services")}><p className='text-black'>Services</p></button>                    </div>
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                    <button onClick={() => router.push("/pages/pricing")}><p className='text-black'>Pricing</p></button>                    </div>
+                    <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
+                    <button onClick={() => router.push("/#contact")}><p className='text-black'>Contact</p></button>                    </div>
                 </div>
                 <button className="md:hidden" onClick={toggleMenu}>
           {isOpen ? (
-            <FaTimes className="text-2xl" />
+            <FaTimes className="text-2xl text-black mr-2" />
           ) : (
-            <FaBars className="text-2xl" />
+            <FaBars className="text-2xl text-black mr-2" />
           )}
         </button>
             </div>
             <div
                 id="nav"
-                className="md:hidden hidden text-right bg-black space-y-5 text-white 
+                className="md:hidden hidden sec rounded-bl-3xl border-2 text-right sec4 space-y-5 text-black 
                 gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
             >
-                <div className="text-white text-xl pr-5">
-                <button onClick={() => router.push("#ads")}><p className='text-white'>Ads</p></button>                </div>
-                <div className="text-white text-xl pr-5">
-                <button onClick={() => router.push("#mentors")}><p className='text-white'>Mentors</p></button>                </div>
-                <div className="text-white text-xl pr-5">
-                <button onClick={() => router.push("#job")}><p className='text-white'>Jobs</p></button>                </div>
-                <div className="text-white text-xl pr-5">
-                    <button onClick={() => router.push("/pages/services")}><p className='text-white'>Services</p></button>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                <button onClick={() => router.push("/pages/users/dashboard")}><p className='text-black'>Dashboard</p> </button>               </div>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                <button onClick={() => router.push("#mentors")}><p className='text-black  active:bg-blue-600'>Mentors</p></button>                </div>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                <button onClick={() => router.push("#job")}><p className='text-black active:bg-blue-600'>Jobs</p></button>                </div>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                    <button onClick={() => router.push("/pages/services")}><p className='text-black active:bg-blue-600'>Services</p></button>
                 </div>
-                <div className="text-white text-xl pr-5">
-                    <button onClick={() => router.push("/pages/pricing")}><p className='text-white'>Pricing</p></button>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                    <button onClick={() => router.push("/pages/pricing")}><p className='text-black active:bg-blue-600'>Pricing</p></button>
                 </div>
-                <div className="text-white text-xl pr-5">
-                    <button onClick={() => router.push("/pages/contact")}><p className='text-white'>Contact</p></button>
+                <div className="text-black active:bg-blue-600 text-xl pr-5">
+                    <button onClick={() => router.push("/#contact")}><p className='text-black active:bg-blue-600'>Contact</p></button>
                 </div>
             </div>
         </nav>

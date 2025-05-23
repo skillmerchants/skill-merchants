@@ -72,13 +72,10 @@ export default function Dashboard() {
     fetchBookings();
   }, [router]);
 
-  if (loading) {
-    return <p className="text-center text-gray-600 py-12">Loading...</p>;
-  }
 
   if (error) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center sec2 py-12">
         <p className="text-red-600 mb-4">{error}</p>
         <div className="space-x-4">
           <button
@@ -103,7 +100,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec1 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
@@ -131,10 +128,10 @@ export default function Dashboard() {
             </Link>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="sec4 rounded-xl shadow-lg p-6">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-gray-400">
+                <thead className="">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Mentor
@@ -156,7 +153,7 @@ export default function Dashboard() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className=" divide-y divide-gray-400">
                   {bookings.map((booking) => {
                     const mentor = mentors[booking.mentorId] || {};
                     return (

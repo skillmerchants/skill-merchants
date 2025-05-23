@@ -52,9 +52,9 @@ const AdminNav = () => {
                 </div>
                 <button className="md:hidden" onClick={toggleMenu}>
           {isOpen ? (
-            <FaTimes className="text-2xl" />
+            <FaTimes className="text-2xl text-white mr-2" />
           ) : (
-            <FaBars className="text-2xl" />
+            <FaBars className="text-2xl text-white mr-2" />
           )}
         </button>
             </div>

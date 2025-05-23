@@ -11,31 +11,77 @@ export default function JobsPage() {
   const [jobs, setJobs] = useState([]); // State to store jobs
   const [deletingId, setDeletingId] = useState(null); // State for delete operation
   const [error, setError] = useState(null); // State for error handling
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalJobs, setTotalJobs] = useState(0);
+  const itemsPerPage = 6;
+  const [isLoading, setIsLoading] = useState(true);
 
  // Log the token for debugging  
   
   // Fetch jobs on component mount
   useEffect(() => {
-    
-    const fetchJobs = async () => {
-
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs`);
-        const jobData = response.data;
-
-        if (!Array.isArray(jobData)) {
-          throw new Error("Invalid jobs data");
+      async function fetchJobs() {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/jobs?limit=${itemsPerPage}&skip=${
+              (page - 1) * itemsPerPage
+            }`,
+            {
+              cache: "no-store",
+            }
+          );
+  
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Failed to fetch jobs (Status: ${response.status})`);
+          }
+  
+          const data = await response.json();
+          console.log("API response:", data);
+  
+          if (!Array.isArray(data.data)) {
+            throw new Error("Invalid jobs data");
+          }
+  
+          const newJobs = data.data;
+          setJobs((prev) => (page === 1 ? newJobs : [...prev, ...newJobs]));
+          setTotalJobs(data.total || 0);
+          setHasMore((page - 1) * itemsPerPage + newJobs.length < data.total);
+        } catch (err) {
+          console.error("Error fetching jobs:", err.message);
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
         }
-
-        setJobs(jobData); // Update state with fetched jobs
-      } catch (err) {
-        console.error("Error fetching jobs:", err);
-        setError(err.message || "Failed to load jobs");
       }
-    };
+  
+      fetchJobs();
+    }, [page]);
+  
+  // useEffect(() => {
+    
+  //   const fetchJobs = async () => {
 
-    fetchJobs();
-  }, []); // Empty dependency array ensures this runs once on mount
+  //     try {
+  //       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs`);
+  //       if (!response.ok) {
+  //         const errorData = await response.json();
+  //         throw new Error(errorData.message || `Failed to fetch jobs (Status: ${response.status})`);
+  //       }
+
+  //       const data = await response.json();
+  //       console.log("API response:", data);
+
+  //       setJobs(data); // Update state with fetched jobs
+  //     } catch (err) {
+  //       console.error("Error fetching jobs:", err);
+  //       setError(err.message || "Failed to load jobs");
+  //     }
+  //   };
+
+  //   fetchJobs();
+  // }, []); // Empty dependency array ensures this runs once on mount
 
   // Handle job deletion
   const handleDelete = async (_id) => {
@@ -88,7 +134,7 @@ export default function JobsPage() {
             <div key={job._id} className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-800">{job.title}</h2>
               <p className="text-gray-600 mt-2">{job.company}</p>
-              <p className="text-gray-600 mt-2">{job.description}</p>
+              <p className="text-gray-600 line-clamp-1 mt-2">{job.description}</p>
               <p className="text-gray-600 mt-2">{job.skills}</p>
               <p className="text-sm text-gray-500 mt-4">{job.location}</p>
               <p className="text-sm text-gray-500 mt-4">{job.salary}</p>
@@ -114,6 +160,66 @@ export default function JobsPage() {
           <p className="text-center text-gray-500">No job listings available.</p>
         )}
       </div>
+              {hasMore && (
+          <div className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={isLoading}
+              className={`px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {isLoading ? (
+                <span className="flex items-center">
+                  <svg
+                    className="w-5 h-5 animate-spin mr-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"
+                    />
+                  </svg>
+                  Loading...
+                </span>
+              ) : (
+                "Load More"
+              )}
+            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1 || isLoading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  page === 1 || isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Previous
+              </button>
+              <span className="text-gray-600 font-medium">Page {page}</span>
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={!hasMore || isLoading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  !hasMore || isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
     </div>
   );
 }

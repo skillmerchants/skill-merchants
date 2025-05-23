@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export default function HowItWorks() {
     const router = useRouter();
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className=" py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -24,7 +24,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <div className="sec4 rounded-xl shadow-lg p-6 sm:p-8">
           {/* Introduction */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Overview</h2>

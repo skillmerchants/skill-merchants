@@ -7,10 +7,10 @@ import Nav from "@app/Component/Nav";
 import Ads from "@app/Component/Ads";
 import Tutors from "@app/Component/Tutors";
 import Jobs from "./Component/Jobs";
-
+import Contact from "./Component/Contact";
 export default function Page() {
   return (
-    <div className="flex flex-col text-center items-center justify-center bg-[rgba(222, 246, 250, 0.993)]">
+    <div className="flex flex-col font-roboto text-center items-center justify-center bg-[rgba(222, 246, 250, 0.993)]">
         <Nav />
         <Hero /> 
         <WhyChooseUs /> 
@@ -18,6 +18,7 @@ export default function Page() {
         <About />
         <Tutors />
         <Jobs />
+        <Contact />
     </div>
   );
 }

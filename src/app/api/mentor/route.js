@@ -110,35 +110,33 @@ export async function POST(req) {
     );
   }
 }
-
-// GET: Retrieve all mentors or a single mentor by ID
-export async function GET(req) {
+// GET handler: Retrieve mentors with pagination
+export async function GET(request) {
   try {
+    // Connect to database
     await dbConnect();
 
-    // const { searchParams } = new URL(req.url);
-    // const id = searchParams.get("id");
+    // Get query parameters for pagination
+    const { searchParams } = new URL(request.url);
+    const limit = parseInt(searchParams.get("limit")) || 6; // Default to 6 mentors
+    const skip = parseInt(searchParams.get("skip")) || 0; // Default to 0 skip
 
-    // if (id) {
-    //   // Validate ObjectId
-    //   if (!mongoose.Types.ObjectId.isValid(id)) {
-    //     return NextResponse.json({ message: "Invalid mentor ID" }, { status: 400 });
-    //   }
+    // Fetch mentors with limit and skip
+    const mentors = await mentor.find().skip(skip).limit(limit).lean();
+    console.log("Fetched mentors:", mentors);
 
-    //   // Get single mentor
-    //   const mentor = await Mentor.findById(id).lean();
-    //   if (!mentor) {
-    //     return NextResponse.json({ message: "Mentor not found" }, { status: 404 });
-    //   }
+    // Get total count for frontend
+    const totalMentors = await mentor.countDocuments();
 
-    //   return NextResponse.json({ data: mentor }, { status: 200 });
-    // }
-
-    // Get all mentors
-    const mentors = await mentor.find({});
-    return NextResponse.json( mentors );
+    return NextResponse.json(
+      {
+        data: mentors,
+        total: totalMentors,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("Error fetching mentors:", error);
+    console.error("Error fetching mentors:", error.message, error.stack);
     return NextResponse.json(
       { message: "Internal server error", error: error.message },
       { status: 500 }

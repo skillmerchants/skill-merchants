@@ -109,7 +109,28 @@ export default function BookingDetails({params}) {
 
 
   if (loading) {
-    return <p className="text-center text-gray-600 py-12">Loading...</p>;
+    
+    return (
+       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
+      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
+
+  
+      </div>
+      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+        <div className="text-center space-y-6">
+          <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
+          <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
+            Almost There...
+          </div>
+          <div className="text-[#9e9e9e] text-sm opacity-80 animate-fadeIn">
+            <p>We're getting everything ready for you...</p>
+            <p>Sit tight for just a moment.</p>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    );
   }
 
   if (error) {

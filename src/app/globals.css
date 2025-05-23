@@ -1,10 +1,34 @@
 @import "tailwindcss";
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-} */
-
+:root {
+font-family: 'Roboto', sans-serif;
+src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&display=swap');
+--font-geist-sans: 'Roboto', sans-serif;
+--font-geist-mono: 'Montserrat', sans-serif;
+}
+h1 {
+  font-family: 'Roboto', sans-serif;
+}
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+body {
+ background-image: linear-gradient(60deg, rgb(29, 225, 231) 0%, rgb(238, 237, 209) 94%);
+}
+.sec {
+ background-image: linear-gradient(45deg, rgb(29, 225, 231) 0%, rgb(238, 237, 209) 94%);
+}
+.sec2 {
+ background-image: linear-gradient(45deg, rgb(238, 237, 209) 0%, rgb(29, 225, 231) 94%);
+}
+.sec3 {
+ background-image: linear-gradient(145deg, rgb(238, 237, 209) 0%, rgb(29, 225, 231) 94%);
+}
+.sec1 {
+ background-image: linear-gradient(60deg, rgb(216, 228, 166) 0%, rgb(116, 202, 218) 94%);
+}
+.sec4 {
+ background-image: linear-gradient(60deg, rgb(216, 228, 166) 0%, rgb(250, 252, 250) 94%);
+}
 /* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

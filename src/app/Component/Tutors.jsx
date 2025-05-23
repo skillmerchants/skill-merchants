@@ -1,113 +1,231 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+// app/pages/tutors/page.jsx
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Tutors = () => {
-    const [tutors, setTutors] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [tutors, setTutors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalTutors, setTotalTutors] = useState(0);
+  const itemsPerPage = 6;
+  const router = useRouter();
 
-    const router = useRouter();
-    useEffect(() => {
-        const fetchTutors = async () => {
-            try {
-                const response = await fetch('/api/mentor'); // Replace with your API endpoint
-                const data = await response.json();
-                setTutors(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching tutors:', error);
-                setLoading(false);
-                setError('Failed to fetch ads');
+  useEffect(() => {
+    const fetchTutors = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/mentor?limit=${itemsPerPage}&skip=${
+            (page - 1) * itemsPerPage
+          }`,
+          {
+            method: "GET",
+            cache: "no-store",
+          }
+        );
 
-            }
-        };
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
+        }
 
-        fetchTutors();
-    }, []);
-
-    if (loading) {
-        return <p> Loading...</p>;
-    }
-    if (error) return <p className="text-center text-red-500">{ error}</p>;
-    if (tutors.length === 0) {
-        return <p> No tutors available</p>;
+        const data = await response.json();
+        console.log("API response:", data);
+        const newTutors = Array.isArray(data.data) ? data.data : [];
+        setTutors((prev) => (page === 1 ? newTutors : [...prev, ...newTutors]));
+        setTotalTutors(data.total || 0);
+        setHasMore((page - 1) * itemsPerPage + newTutors.length < data.total);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching tutors:", error.message);
+        setError(error.message || "Failed to fetch tutors. Please try again.");
+        setLoading(false);
+      }
     };
-    return (
-<div className="bg-gray-100 w-full py-12 px-4 sm:px-6 lg:px-8" id='mentors'>
-  <div className="container mx-auto">
-    {/* Heading and Description */}
-    <div className="text-center mb-12" >
-      <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-        Meet Our Expert Mentors
-      </h1>
-      <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
-        Connect with our collaborative network of seasoned mentors. Book a one-on-one appointment with any of our experts to gain personalized insights and guidance tailored to your needs.
-      </p>
-    </div>
 
-    {/* Mentors Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {tutors.length === 0 ? (
-        <p className="col-span-full text-center text-gray-500 text-lg font-medium">
-          No mentors available at the moment.
-        </p>
-      ) : (
-        tutors.map((tutor) => (
-          <div
-            key={tutor._id}
-            className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+    fetchTutors();
+  }, [page, router]);
+
+  if (loading && page === 1) {
+    return (
+      <div className="min-h-screen flex items-center w-full justify-center sec2">
+        <div className="flex items-center space-x-2">
+          <svg
+            className="w-6 h-6 animate-spin text-indigo-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
           >
-            <h3 className="text-xl font-bold text-gray-900 truncate">
-              {tutor.name}
-            </h3>
-            <p className="mt-2 text-gray-600 line-clamp-3">
-              <span className="font-semibold">Tutorial Info:</span>{" "}
-              {tutor.description}
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Course:</span> {tutor.course}
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Experience:</span>{" "}
-              {tutor.experience} years
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Service Duration:</span>{" "}
-              {new Date(tutor.duration).toLocaleDateString()}
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Location:</span> {tutor.location}
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Salary:</span> ${tutor.salary}
-            </p>
-            <p className="mt-2 text-gray-600">
-              <span className="font-semibold">Availability:</span>{" "}
-              <span
-                className={
-                  tutor.availability ? "text-green-600" : "text-red-600"
-                }
-              >
-                {tutor.availability ? "Available" : "Not Available"}
-              </span>
-            </p>
-            <button
-              className="mt-4 w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
-              onClick={() => router.push(`/pages/tutor/${tutor._id}`)}
-            >
-              Book Appointment
-            </button>
-          </div>
-        ))
-      )}
-    </div>
-  </div>
-</div>
-        
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"
+            />
+          </svg>
+          <p className="text-lg text-gray-600 font-medium">Loading tutors...</p>
+        </div>
+      </div>
     );
-    return null;
-    
-} ;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center sec3 w-full">
+        <div className="text-center">
+          <p className="text-lg text-red-500 font-medium">{error}</p>
+          <button
+            onClick={() => {
+              setLoading(true);
+              setError(null);
+              setPage(1);
+            }}
+            className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="min-h-screen sec3 w-full py-12 px-4 sm:px-6 lg:px-8"
+      id="mentors"
+    >
+      <div className="container mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+            Meet Our Expert Mentors
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
+            Connect with our collaborative network of seasoned mentors. Book a one-on-one appointment with any of our experts to gain personalized insights and guidance tailored to your needs.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tutors.length === 0 ? (
+            <p className="col-span-full text-center text-gray-600 text-lg font-medium">
+              No mentors available at the moment.
+            </p>
+          ) : (
+            tutors.map((tutor) => (
+              <div
+                key={tutor._id}
+                className="sec4 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <h3 className="text-xl font-bold text-gray-900 truncate">{tutor.name}</h3>
+                <p className="mt-2 text-gray-600 line-clamp-3">
+                  <span className="font-semibold line-clamp-1">Tutorial Info:</span>{" "}
+                  {tutor.description}
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Course:</span> {tutor.course}
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Experience:</span> {tutor.experience} years
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Service Duration:</span>{" "}
+                  {new Date(tutor.duration).toLocaleDateString()}
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Location:</span> {tutor.location}
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Salary:</span> ${tutor.salary}
+                </p>
+                <p className="mt-2 text-gray-600">
+                  <span className="font-semibold">Availability:</span>{" "}
+                  <span className={tutor.availability ? "text-green-600" : "text-red-600"}>
+                    {tutor.availability ? "Available" : "Not Available"}
+                  </span>
+                </p>
+                <button
+                  className="mt-4 w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
+                  onClick={() => router.push(`/pages/tutor/${tutor._id}`)}
+                >
+                  Book Appointment
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        {hasMore && (
+          <div className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={loading}
+              className={`px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? (
+                <span className="flex w-full items-center">
+                  <svg
+                    className="w-5 h-5 animate-spin mr-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"
+                    />
+                  </svg>
+                  Loading...
+                </span>
+              ) : (
+                "Load More"
+              )}
+            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1 || loading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  page === 1 || loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Previous
+              </button>
+              <span className="text-gray-600 font-medium">Page {page}</span>
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={!hasMore || loading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  !hasMore || loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Tutors;

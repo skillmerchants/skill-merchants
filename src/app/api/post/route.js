@@ -127,32 +127,52 @@ const cookieStore = await cookies();
 
 
 
-
-// GET handler: Retrieve all ads
-export async function GET() {
+// GET handler: Retrieve ads with pagination
+export async function GET(request) {
   try {
     await dbConnect();
-         const cookieStore = await cookies();
-       const Token = cookieStore.get("token")?.value;
-       console.log('token:' ,Token);
-       if (!Token) {
-         return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
-       }
-     
-       // Verify JWT
-       const token = Token;
-     
-       let decoded;
-       try {
-         decoded = jwt.verify(token, process.env.JWT_SECRET);
-       } catch (err) {
-         console.log(err);
-         return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
-       }
-     
-    const ads = await Ads.find().lean();
-    console.log(ads); // Fetch all ads
-    return NextResponse.json({ data: ads }, { status: 200 });
+
+    // Authentication
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+    console.log("Token:", token);
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+    }
+
+    // Verify JWT
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+      console.error("JWT verification error:", err);
+      return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
+    }
+
+    // Get query parameters for pagination
+    const { searchParams } = new URL(request.url);
+    const limit = parseInt(searchParams.get("limit")) || 6; // Default to 6 ads per page
+    const skip = parseInt(searchParams.get("skip")) || 0; // Default to 0 skip
+
+    // Fetch ads with limit and skip
+    const ads = await Ads.find()
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    console.log("Fetched ads:", ads);
+
+    // Optional: Get total count for frontend to determine if more data exists
+    const totalAds = await Ads.countDocuments();
+
+    return NextResponse.json(
+      {
+        data: ads,
+        total: totalAds, // Include total for hasMore calculation
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching ads:", error);
     return NextResponse.json(

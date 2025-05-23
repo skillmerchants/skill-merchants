@@ -8,6 +8,16 @@ const Mentors = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalTutors, setTotalTutors] = useState(0);
+  const itemsPerPage = 6;
+  
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const truncateText = (text, length) => {
+    if (text.length <= length) return text;
+    return text.slice(0, length) + "...";
+  };
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -22,26 +32,60 @@ const Mentors = () => {
   const [editId, setEditId] = useState(null);
   const nameInputRef = useRef(null); // Ref for the Name input
 
-  // Fetch all mentors
-  const fetchMentors = async () => {
-    try {
-      const response = await fetch("/api/mentor");
-      if (!response.ok) throw new Error("Failed to fetch mentors");
-      const result = await response.json();
-      console.log("GET /api/mentor response:", result); // Debug response
-      setMentors(Array.isArray(result) ? result : result.data || []);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching mentors:", error);
-      setError("Failed to fetch mentors");
-      setLoading(false);
-    }
-  };
+    useEffect(() => {
+      const fetchTutors = async () => {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/mentor?limit=${itemsPerPage}&skip=${
+              (page - 1) * itemsPerPage
+            }`,
+            {
+              method: "GET",
+              cache: "no-store",
+            }
+          );
+  
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
+          }
+  
+          const data = await response.json();
+          console.log("API response:", data);
+          const newTutors = Array.isArray(data.data) ? data.data : [];
+          setMentors((prev) => (page === 1 ? newTutors : [...prev, ...newTutors]));
+          setTotalTutors(data.total || 0);
+          setHasMore((page - 1) * itemsPerPage + newTutors.length < data.total);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching tutors:", error.message);
+          setError(error.message || "Failed to fetch tutors. Please try again.");
+          setLoading(false);
+        }
+      };
+  
+      fetchTutors();
+    }, [page, router]);
+  // // Fetch all mentors
+  // const fetchMentors = async () => {
+  //   try {
+  //     const response = await fetch("/api/mentor");
+  //     if (!response.ok) throw new Error("Failed to fetch mentors");
+  //     const result = await response.json();
+  //     console.log("GET /api/mentor response:", result); // Debug response
+  //     setMentors(Array.isArray(result) ? result : result.data || []);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching mentors:", error);
+  //     setError("Failed to fetch mentors");
+  //     setLoading(false);
+  //   }
+  // };
 
-  // Fetch mentors on mount
-  useEffect(() => {
-    fetchMentors();
-  }, []);
+  // // Fetch mentors on mount
+  // useEffect(() => {
+  //   fetchMentors();
+  // }, []);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -138,7 +182,29 @@ const Mentors = () => {
     }
   };
 
-  if (loading) return <p className="text-center text-gray-600">Loading...</p>;
+  if (loading) {
+    return (
+       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
+      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
+
+  
+      </div>
+      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+        <div className="text-center space-y-6">
+          <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
+          <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
+            Almost There...
+          </div>
+          <div className="text-[#9e9e9e] text-sm opacity-80 animate-fadeIn">
+            <p>We're getting everything ready for you...</p>
+            <p>Sit tight for just a moment.</p>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    );
+  }
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
@@ -368,7 +434,6 @@ const Mentors = () => {
                 <h3 className="text-lg font-semibold text-gray-900">
                   {mentor.name}
                 </h3>
-                <p className="mt-2 text-gray-600">{mentor.description}</p>
                 <p className="mt-1">
                   <strong>Course:</strong> {mentor.course}
                 </p>
@@ -392,6 +457,18 @@ const Mentors = () => {
                 <p className="mt-1">
                   <strong>Experience:</strong> {mentor.experience} years
                 </p>
+                <p className="mt-2 text-gray-600 ">
+                  {showFullDescription ? mentor.description : truncateText(mentor.description, 100)}
+                </p>
+                {mentor.description.length > 100 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowFullDescription(!showFullDescription)}
+                    className="text-indigo-600 hover:text-indigo-800 text-sm"
+                  >
+                    {showFullDescription ? "Show Less" : "Show More"}
+                  </button>
+                )}
                 <div className="mt-4 flex justify-between">
                   <button
                     onClick={() => handleEdit(mentor)}
@@ -408,6 +485,66 @@ const Mentors = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+                {hasMore && (
+          <div className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={loading}
+              className={`px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? (
+                <span className="flex w-full items-center">
+                  <svg
+                    className="w-5 h-5 animate-spin mr-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"
+                    />
+                  </svg>
+                  Loading...
+                </span>
+              ) : (
+                "Load More"
+              )}
+            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1 || loading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  page === 1 || loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Previous
+              </button>
+              <span className="text-gray-600 font-medium">Page {page}</span>
+              <button
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={!hasMore || loading}
+                className={`px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 ${
+                  !hasMore || loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Next
+              </button>
+            </div>
           </div>
         )}
       </div>

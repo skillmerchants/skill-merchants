@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export default function Pricing() {
   const router = useRouter();
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec2 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -25,7 +25,7 @@ export default function Pricing() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <div className="sec4 rounded-xl shadow-lg p-6 sm:p-8">
           {/* Introduction */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Overview</h2>
@@ -43,7 +43,7 @@ export default function Pricing() {
             </p>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-white">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Plan
@@ -85,7 +85,7 @@ export default function Pricing() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Mentor Board Participation</h2>
             <div className="overflow-x-auto mb-4">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-white">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Service
@@ -148,7 +148,7 @@ export default function Pricing() {
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-white">
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Scenario
