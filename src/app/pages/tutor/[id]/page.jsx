@@ -187,7 +187,7 @@ const MentorDetails = ({ params }) => {
         {/* Mentor Details and Booking Form */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Mentor Details */}
-          <div className="sec1 rounded-xl shadow-lg p-6">
+          <div className="sec4 rounded-xl shadow-lg p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Mentor Details</h3>
             <div className="space-y-4">
               <p className="text-gray-600">
