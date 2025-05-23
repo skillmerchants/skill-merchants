@@ -40,8 +40,8 @@ export default function UserSignup() {
   } ;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
+    <div className="min-h-screen flex items-center justify-center sec2">
+      <div className="sec4 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
         {/* Header */}
         <h2 className="text-2xl font-bold text-center text-gray-800">User Signup</h2>
 

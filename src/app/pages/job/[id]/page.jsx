@@ -46,12 +46,12 @@ export default function JobDetails() {
 
   if (isLoading) {
     return (
-       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
-      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
+       <div className="mx-auto  w-full  sec2 h-full overflow-hidden ">
+      <div className="sec3 flex items-center p-[20px] text-white relative rounded-t-xl">
 
   
       </div>
-      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+      <div className="flex sec4 p-8 justify-center items-center h-[450px]">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
@@ -85,7 +85,7 @@ export default function JobDetails() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center sec3 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl w-full space-y-6">
         {/* Back Button */}
         <button
@@ -105,7 +105,7 @@ export default function JobDetails() {
         </button>
 
         {/* Job Details Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
+        <div className="sec4 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">{job.title}</h2>
           <div className="space-y-4">
             <div className="flex items-center">

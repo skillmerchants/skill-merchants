@@ -126,12 +126,12 @@ const MentorDetails = ({ params }) => {
 
   if (loading) {
     return (
-       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
-      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
+       <div className="mx-auto  w-full  sec3 h-full overflow-hidden ">
+      <div className="sec4 flex items-center p-[20px] text-white relative rounded-t-xl">
 
   
       </div>
-      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+      <div className="flex sec4 p-8 justify-center items-center h-[450px]">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
@@ -163,7 +163,7 @@ const MentorDetails = ({ params }) => {
   }
 
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec3 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -175,7 +175,7 @@ const MentorDetails = ({ params }) => {
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
             Connect with {mentor.name} for personalized guidance in {mentor.course}. Book a one-on-one appointment to gain expert insights tailored to your goals.
-          </p>
+          </p>r 
           <button
             onClick={() => router.back()}
             className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
@@ -187,7 +187,7 @@ const MentorDetails = ({ params }) => {
         {/* Mentor Details and Booking Form */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Mentor Details */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="sec1 rounded-xl shadow-lg p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Mentor Details</h3>
             <div className="space-y-4">
               <p className="text-gray-600">
@@ -219,7 +219,7 @@ const MentorDetails = ({ params }) => {
           </div>
 
           {/* Booking Form */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="sec4 rounded-xl shadow-lg p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Book an Appointment</h3>
             {mentor.availability ? (
               <form onSubmit={handleBookingSubmit} className="space-y-4">

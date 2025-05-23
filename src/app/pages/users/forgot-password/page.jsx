@@ -40,7 +40,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+    <div className="sec3 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
@@ -51,7 +51,7 @@ export default function ForgotPassword() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className="sec4 rounded-xl shadow-lg p-6">
           {message && (
             <p className="text-green-600 text-center mb-4">{message}</p>
           )}
