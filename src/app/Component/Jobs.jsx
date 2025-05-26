@@ -134,7 +134,7 @@ export default function JobsPage() {
                     >
                       View Details
                     </button>
-                    <button className=" text-center px-4 py-1 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                    <button className=" text-center px-4 py-1 sec5 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
                       <a
                         href={job.url}
                         target="_blank"

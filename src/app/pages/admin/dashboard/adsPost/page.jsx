@@ -53,41 +53,49 @@ export default function UploadAdForm() {
   };
 
   return (
-    <div className=" p-6 bg-white ">
-            <div className="flex justify-between mb-8">
-       
-        <button
-          onClick={() => router.back()}
-          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
-        >
-        ← Go back to Ad
-      </button>
+    <div className=" py-30 sec3 px-5 ">
+              <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back 
+          </button>
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black hidden md:inline font-[700]">Skill Merchants</h2>
+                </div>
 
-      </div>
-      <h2 className="text-2xl font-bold text-center mb-6">Upload an Ad</h2>
+            </div> 
+          </nav>
+   <div className="sec4 max-w-4xl py-5 mx-auto border border-gray-500 rounded-md shadow-sm ">
+       <h2 className="text-2xl font-bold text-center mb-6">Upload an Ad</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {success && <p className="text-green-500 mb-4">{success}</p>}
-      <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-4">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-4 p-6 ">
         <div>
           <label htmlFor="title" className="block text-sm font-medium">Title</label>
           <input
             type="text"
             id="title"
+            placeholder="Enter ad title"
             value={adDetails.title}
             onChange={(e) => setAdDetails({ ...adDetails, title: e.target.value })}
             required
-            className="mt-1 w-full p-2 border rounded-md"
+             className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <div>
           <label htmlFor="description" className="block text-sm font-medium">Description</label>
           <textarea
             id="description"
+            placeholder="Enter ad description"
             value={adDetails.description}
             onChange={(e) => setAdDetails({ ...adDetails, description: e.target.value })}
             required
             rows="3"
-            className="mt-1 w-full p-2 border rounded-md"
+             className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <div>
@@ -95,21 +103,23 @@ export default function UploadAdForm() {
           <input
             type="url"
             id="link"
+            placeholder="Enter ad link"
             value={adDetails.link}
             onChange={(e) => setAdDetails({ ...adDetails, link: e.target.value })}
             required
-            className="mt-1 w-full p-2 border rounded-md"
+             className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <div>
           <label htmlFor="image" className="block text-sm font-medium">Image</label>
           <input
             type="file"
+
             id="image"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
             required
-            className="mt-1 w-full"
+             className="mt-1 block  w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <div>
@@ -120,13 +130,14 @@ export default function UploadAdForm() {
             accept="video/*"
             onChange={(e) => setVideo(e.target.files[0])}
             required
-            className="mt-1 w-full"
+             className="mt-1 block w-full px-3 py-2 border placeholder:text-blue-500 border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
-        <button type="submit" className="w-full">
+        <button type="submit"  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Upload Ad
         </button>
       </form>
+   </div>
     </div>
   );
 }

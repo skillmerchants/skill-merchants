@@ -184,18 +184,15 @@ const Mentors = () => {
 
   if (loading) {
     return (
-       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
-      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
-
+       <div className="mx-auto  w-full   h-full overflow-hidden ">
   
-      </div>
-      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+      <div className="flex  p-8 justify-center items-center min-h-screen">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
             Almost There...
           </div>
-          <div className="text-[#9e9e9e] text-sm opacity-80 animate-fadeIn">
+          <div className="text-gray-700 text-sm opacity-80 animate-fadeIn">
             <p>We're getting everything ready for you...</p>
             <p>Sit tight for just a moment.</p>
           </div>
@@ -208,10 +205,22 @@ const Mentors = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
-        ← Back to user dashboard
-      </button>
+    <div className="min-h-screen sec3 py-30 px-4 sm:px-6 lg:px-8">
+              <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back 
+          </button>
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black hidden md:inline font-[700]">Skill Merchants</h2>
+                </div>
+
+            </div> 
+          </nav>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold text-gray-900 mb-6 text-center">
           Manage Mentors
@@ -220,7 +229,7 @@ const Mentors = () => {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-6 rounded-lg shadow-md mb-8"
+          className="sec4 p-6 rounded-lg shadow-md mb-8"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -429,7 +438,7 @@ const Mentors = () => {
             {mentors.map((mentor) => (
               <div
                 key={mentor._id}
-                className="bg-white p-6 rounded-lg shadow-md"
+                className="sec4 p-6 rounded-lg shadow-md"
               >
                 <h3 className="text-lg font-semibold text-gray-900">
                   {mentor.name}
@@ -472,7 +481,7 @@ const Mentors = () => {
                 <div className="mt-4 flex justify-between">
                   <button
                     onClick={() => handleEdit(mentor)}
-                    className="px-4 py-2 bg-yellow-500 text-white rounded-md shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                    className="px-4 py-2 sec5 text-white rounded-md shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                   >
                     Edit
                   </button>

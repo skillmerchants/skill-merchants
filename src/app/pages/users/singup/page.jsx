@@ -41,6 +41,14 @@ export default function UserSignup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center sec2">
+              <nav className="fixed  top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                <div className="flex items-center gap-3 mx-15 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black font-[700]">Skill Merchants</h2>
+                </div>
+            </div> 
+          </nav>
       <div className="sec4 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
         {/* Header */}
         <h2 className="text-2xl font-bold text-center text-gray-800">User Signup</h2>

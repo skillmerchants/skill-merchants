@@ -100,7 +100,21 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="sec1 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec1 py-32 px-4 sm:px-6 lg:px-8 min-h-screen">
+              <nav className="fixed  top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black font-[700]">Skill Merchants</h2>
+                </div>
+                          <button
+             onClick={() => router.push("/#mentors")}
+            className="mt-1 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back to All Mentors
+          </button>
+            </div> 
+          </nav>
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
@@ -109,12 +123,12 @@ export default function Dashboard() {
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
             View all your booked appointments with mentors, including payment status.
           </p>
-          <Link
+          {/* <Link
             href="/#mentors"
             className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Browse Mentors
-          </Link>
+          </Link> */}
         </div>
 
         {noBookings ? (

@@ -127,11 +127,11 @@ const MentorDetails = ({ params }) => {
   if (loading) {
     return (
        <div className="mx-auto  w-full  sec3 h-full overflow-hidden ">
-      <div className="sec4 flex items-center p-[20px] text-white relative rounded-t-xl">
+      <div className=" flex items-center p-[20px] text-white relative rounded-t-xl">
 
   
       </div>
-      <div className="flex sec4 p-8 justify-center items-center h-[450px]">
+      <div className="flex  p-8 justify-center items-center min-h-screen">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
@@ -163,10 +163,22 @@ const MentorDetails = ({ params }) => {
   }
 
   return (
-    <div className="sec3 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec3 py-32 px-4 sm:px-6 lg:px-8 min-h-screen">
       <div className="container mx-auto max-w-4xl">
-        {/* Header */}
-        <div className="text-center mb-12">
+        <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black font-[700]">Skill Merchants</h2>
+                </div>
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back to All Mentors
+          </button>
+            </div> 
+          </nav>        <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
             {mentor.name}
           </h1>
@@ -175,13 +187,8 @@ const MentorDetails = ({ params }) => {
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
             Connect with {mentor.name} for personalized guidance in {mentor.course}. Book a one-on-one appointment to gain expert insights tailored to your goals.
-          </p>r 
-          <button
-            onClick={() => router.back()}
-            className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
-          >
-            ← Back to All Mentors
-          </button>
+          </p> 
+
         </div>
 
         {/* Mentor Details and Booking Form */}

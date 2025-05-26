@@ -47,17 +47,14 @@ export default function JobDetails() {
   if (isLoading) {
     return (
        <div className="mx-auto  w-full  sec2 h-full overflow-hidden ">
-      <div className="sec3 flex items-center p-[20px] text-white relative rounded-t-xl">
 
-  
-      </div>
-      <div className="flex sec4 p-8 justify-center items-center h-[450px]">
+      <div className="flex  p-8 justify-center items-center min-h-screen">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
             Almost There...
           </div>
-          <div className="text-[#9e9e9e] text-sm opacity-80 animate-fadeIn">
+          <div className="text-gray-700 text-sm opacity-80 animate-fadeIn">
             <p>We're getting everything ready for you...</p>
             <p>Sit tight for just a moment.</p>
           </div>
@@ -86,23 +83,23 @@ export default function JobDetails() {
 
   return (
     <div className="min-h-screen flex items-center justify-center sec3 py-12 px-4 sm:px-6 lg:px-8">
+              <nav className="fixed  top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black font-[700]">Skill Merchants</h2>
+                </div>
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back to Job Listings
+          </button>
+            </div> 
+          </nav> 
       <div className="max-w-2xl w-full space-y-6">
         {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200"
-        >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Job Listings
-        </button>
+  
 
         {/* Job Details Card */}
         <div className="sec4 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">

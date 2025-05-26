@@ -35,13 +35,13 @@ export default async function AdminDashboard() {
 
 
     return (
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen sec3">
         <AdminNav />
         <div className="p-8 ">
           <h1 className="text-3xl font-bold text-gray-800 mt-26 mb-6">Admin Dashboard</h1>
 
           {/* Table */}
-          <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+          <div className="sec4 p-6 rounded-lg shadow-md overflow-x-auto">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">All Users</h2>
 
             <table className="min-w-full divide-y divide-gray-200">

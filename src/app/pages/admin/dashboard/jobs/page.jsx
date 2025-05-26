@@ -105,24 +105,30 @@ export default function JobsPage() {
   };
 
   return (
-    <div className="p-8 bg-gray-100 w-full min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">Web Development Intern</h1>
-      <h1 className="text-xl font-bold text-center mb-8">Tech Solutions Inc</h1>
-      <div className="flex justify-between mb-8">
-        <button
-          onClick={() => router.back()}
-          className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
-        >
-          ← Go to User Dashboard
-        </button>
-        <button
+    <div className="p-8 sec2 pt-32 w-full min-h-screen">
+              <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back 
+          </button>
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black hidden md:inline font-[700]">Skill Merchants</h2>
+                </div>
+                  <button
           onClick={() => router.push("/pages/admin/dashboard/jobPost")}
-          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+          className="my-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
         >
         Post Job
       </button>
+            </div> 
+          </nav>
+      <h1 className="text-3xl font-bold text-center mb-8">Web Development Intern</h1>
+      <h1 className="text-xl font-bold text-center mb-8">Tech Solutions Inc</h1>
 
-      </div>
       <h1 className="font-bold text-center mb-8">Job Listings</h1>
 
       {/* Error Message */}
@@ -131,7 +137,7 @@ export default function JobsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {Array.isArray(jobs) && jobs.length > 0 ? (
           jobs.map((job) => (
-            <div key={job._id} className="bg-white rounded-lg shadow-md p-6">
+            <div key={job._id} className="sec4 rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-800">{job.title}</h2>
               <p className="text-gray-600 mt-2">{job.company}</p>
               <p className="text-gray-600 line-clamp-1 mt-2">{job.description}</p>
