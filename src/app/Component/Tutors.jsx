@@ -18,7 +18,7 @@ const Tutors = () => {
     const fetchTutors = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/mentor?limit=${itemsPerPage}&skip=${
+          `/api/mentor?limit=${itemsPerPage}&skip=${
             (page - 1) * itemsPerPage
           }`,
           {

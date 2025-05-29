@@ -21,7 +21,7 @@ export default function JobDetails() {
       }
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`, {
+        const response = await fetch(`/api/jobs/${id}`, {
           method: 'GET',
           cache: 'no-store', // Adjust caching as needed
         });

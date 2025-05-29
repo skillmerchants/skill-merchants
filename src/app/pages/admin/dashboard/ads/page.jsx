@@ -18,7 +18,7 @@ const Ads = () => {
       const fetchAds = async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/post?limit=${itemsPerPage}&skip=${
+            `$/api/post?limit=${itemsPerPage}&skip=${
               (page - 1) * itemsPerPage
             }`,
             {
@@ -36,6 +36,7 @@ const Ads = () => {
           }
   
           const result = await response.json();
+
           console.log("API response:", result);
           const newAds = Array.isArray(result.data) ? result.data : [];
           setAds((prev) => (page === 1 ? newAds : [...prev, ...newAds]));
@@ -193,7 +194,7 @@ if (loading && page === 1) {
                 <div className="relative w-full h-64">
                   {ad.image && (
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/api/post/${ad.image}`}
+                      src={`/api/post/${ad.image}`}
                       alt={ad.title || "Advertisement"}
                       className="w-full h-full object-cover transition-opacity duration-300"
                       style={{ opacity: 1 }}
@@ -212,7 +213,7 @@ if (loading && page === 1) {
                       onError={() => console.error(`Failed to load video for ad ${ad._id}`)}
                     >
                       <source
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/api/post/${ad.video}`}
+                        src={`/api/post/${ad.video}`}
                         type="video/mp4"
                       />
                       Your browser does not support the video tag.
