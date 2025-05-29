@@ -1,37 +1,88 @@
-// app/admin/dashboard/page.jsx
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import axios from 'axios'; // Import Axios
+"use client";
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import AdminNav from '@/app/Component/adminNav';
-import Link from "next/link";
+import { useRouter, } from "next/navigation";
 
-export default async function AdminDashboard() {
-  try {
-    // Extract the token from cookies
-    const cookieStore = await cookies(); // No need to await here
-    const token = cookieStore.get('token')?.value;
-    console.log('Token:', token); // Log the token for debugging  
+const AdminDashboard = () => {
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+ const router = useRouter();
+  useEffect(() => {
+    // Fetch users client-side
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/admin`, {
+          validateStatus: (status) => status >= 200 && status < 300,
+        });
+        if (!Array.isArray(response.data)) {
+          throw new Error('Invalid users data');
+        }
+        setUsers(response.data);
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Error fetching users:', err);
+        setError(err);
+        setIsLoading(false);
+        // Handle 401/403 errors client-side
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          setError('Unauthorized');
+        }
+      }
+    };
 
-    if (!token) {
-      console.error('No token found in cookies');
-      redirect('/pages/admin/login'); // Redirect to login page if no token is found
-    }
+    fetchUsers();
+  }, []);
 
-    // Fetch users from the API using Axios
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/admin`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    // Ensure the response contains valid data
-    const users = response.data; // Use response.data for Axios
-    if (!Array.isArray(users)) {
-      throw new Error('Invalid users data');
-    }
-
+  // Redirect to login if unauthorized
+  if (error?.response?.status === 401 || error?.response?.status === 403) {
+         router.push("/pages/users/login");
+         return;
+  }
 
   
+if (isLoading ) {
+    return (
+       <div className="mx-auto  w-full  sec3 h-full overflow-hidden ">
+
+      <div className="flex  p-8 justify-center items-center min-h-screen">
+        <div className="text-center space-y-6">
+          <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
+          <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
+            Almost There...
+          </div>
+          <div className="text-gray-700 text-sm opacity-80 animate-fadeIn">
+            <p>We're getting everything ready for you...</p>
+            <p>Sit tight for just a moment.</p>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-200">
+        <div className="text-center">
+          <p className="text-lg text-red-500 font-medium">{error}</p>
+          <button
+            onClick={() => {
+              setLoading(true);
+              setError(null);
+              setPage(1);
+            }}
+            className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
 
     return (
@@ -87,10 +138,6 @@ export default async function AdminDashboard() {
         </div>
       </div>
     );
-  } catch (error) {
-    console.error('Error fetching users:', error);
+  } 
 
-    // Redirect to login page on error
-    redirect('/pages/admin/login');
-  }
-}
+  export default  AdminDashboard;

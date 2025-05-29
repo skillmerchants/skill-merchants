@@ -114,7 +114,7 @@ const Tutors = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 text-left sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tutors.length === 0 ? (
             <p className="col-span-full text-center text-gray-600 text-lg font-medium">
               No mentors available at the moment.
@@ -125,29 +125,29 @@ const Tutors = () => {
                 key={tutor._id}
                 className="sec4 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <h3 className="text-xl font-bold text-gray-900 truncate">{tutor.name}</h3>
+                <h3 className="text-xl font-bold text-gray-900 truncate">
+                  <span className="font-semibold text-blue-600 pr-2">Course:</span> {tutor.course}
+                </h3>
+                <p className="mt-2 text-gray-600"><span className="font-semibold text-blue-600 pr-2">Mentors name:</span>{tutor.name}</p>
                 <p className="mt-2 text-gray-600 line-clamp-3">
-                  <span className="font-semibold line-clamp-1">Tutorial Info:</span>{" "}
+                  <span className="font-semibold line-clamp-1 text-blue-600 pr-2">Tutorial Info:</span>
                   {tutor.description}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Course:</span> {tutor.course}
+                  <span className="font-semibold text-blue-600 pr-2">Experience:</span> {tutor.experience} years
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Experience:</span> {tutor.experience} years
-                </p>
-                <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Service Duration:</span>{" "}
+                  <span className="font-semibold text-blue-600 pr-2">Service Duration:</span>{" "}
                   {new Date(tutor.duration).toLocaleDateString()}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Location:</span> {tutor.location}
+                  <span className="font-semibold text-blue-600 pr-2">Location:</span> {tutor.location}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Salary:</span> ${tutor.salary}
+                  <span className="font-semibold text-blue-600 pr-2">Salary:</span> ${tutor.salary}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Availability:</span>{" "}
+                  <span className="font-semibold text-blue-600">Availability:</span>{" "}
                   <span className={tutor.availability ? "text-green-600" : "text-red-600"}>
                     {tutor.availability ? "Available" : "Not Available"}
                   </span>

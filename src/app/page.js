@@ -8,6 +8,7 @@ import Ads from "@app/Component/Ads";
 import Tutors from "@app/Component/Tutors";
 import Jobs from "./Component/Jobs";
 import Contact from "./Component/Contact";
+import Footer from "./Component/Footer";
 export default function Page() {
   return (
     <div className="flex flex-col font-roboto text-center items-center justify-center bg-[rgba(222, 246, 250, 0.993)]">
@@ -19,6 +20,7 @@ export default function Page() {
         <Tutors />
         <Jobs />
         <Contact />
+        <Footer />
     </div>
   );
 }

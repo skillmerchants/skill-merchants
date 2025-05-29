@@ -1,12 +1,31 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import User from '@models/User';
+import { cookies } from 'next/headers';
 
 export async function POST(request) {
   try {
+      const cookieStore = await cookies();
+         const Token = cookieStore.get("token")?.value;
+         console.log('token:' ,Token);
+         if (!Token) {
+           return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+         }
+       
+         // Verify JWT
+         const token = Token;
+       
+         let decoded;
+         try {
+           decoded = jwt.verify(token, process.env.JWT_SECRET);
+         } catch (err) {
+           console.log(err);
+           return NextResponse.json({ error: "Unauthorized: Invalid token" }, { status: 401 });
+         }
+
     await mongoose.connect(process.env.MONGODB_URI);
 
-    const { token, password } = await request.json();
+    const {  password } = await request.json();
 
     // Find user by reset token and check expiry
     const user = await User.findOne({

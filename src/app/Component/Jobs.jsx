@@ -107,25 +107,23 @@ export default function JobsPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 text-left sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {jobs.length > 0 ? (
               jobs.map((job) => (
                 <div
                   key={job._id}
                   className="sec4 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
-                  <h3 className="text-xl font-bold text-gray-900 truncate">{job.title}</h3>
-                  <p className="text-gray-600 mt-2 font-semibold">{job.company}</p>
-                  <p className="text-gray-600 mt-2 line-clamp-1">{job.description}</p>
-                  <p className="text-gray-600 mt-2">
-                    <span className="font-semibold">Skills:</span> {job.skills}
-                  </p>
-                  <p className="text-sm text-gray-500 mt-4">{job.location}</p>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <h3 className="text-xl font-bold text-gray-900 truncate "><span className="font-semibold text-blue-600 pr-2">Title:</span>{job.title}</h3>
+                  <p className="text-gray-600 mt-2 font-semibold "><span className="font-semibold text-blue-600 pr-2">Company:</span>{job.company}</p>
+                  <p className="text-gray-600 mt-2 line-clamp-1 "><span className="font-semibold text-blue-600 pr-2">Description:</span>{job.description}</p>
+                 
+                  <p className="text-sm text-gray-500 mt-4 "><span className="font-semibold text-blue-600 pr-2">Location:</span>{job.location}</p>
+                  <p className="text-sm text-gray-500 mt-2 "><span className="font-semibold text-blue-600 pr-2">Salary:</span>
                     {job.salary ? `$${job.salary}` : "Salary not disclosed"}
                   </p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Posted on: {new Date(job.createdAt).toLocaleDateString()}
+                  <p className="text-sm text-gray-500 mt-2 "><span className="font-semibold text-blue-600 pr-2">Posted on:</span>
+                     {new Date(job.createdAt).toLocaleDateString()}
                   </p>
                   <div className="mt-4 flex justify-around s">
                     <button
@@ -134,7 +132,7 @@ export default function JobsPage() {
                     >
                       View Details
                     </button>
-                    <button className=" text-center px-4 py-1 sec5 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                    <button className=" text-center px-4 py-1 sec5 text-black font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
                       <a
                         href={job.url}
                         target="_blank"

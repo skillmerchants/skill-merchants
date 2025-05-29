@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useRouter, } from "next/navigation";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -11,15 +10,8 @@ export default function ResetPassword() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
 
-  useEffect(() => {
-    if (!token) {
-      setError("Invalid or missing reset token.");
-    }
-  }, [token]);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -36,7 +28,7 @@ export default function ResetPassword() {
       const response = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password }),
+        body: JSON.stringify({  password }),
       });
 
       const result = await response.json();
@@ -121,9 +113,9 @@ export default function ResetPassword() {
 
             <button
               type="submit"
-              disabled={loading || !token}
+              disabled={loading }
               className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                loading || !token
+                loading 
                   ? "bg-indigo-400 cursor-not-allowed"
                   : "bg-indigo-600 hover:bg-indigo-700"
               } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}

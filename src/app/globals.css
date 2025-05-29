@@ -32,6 +32,9 @@ body {
 .sec5{
   background-color: rgb(12, 243, 243);
 }
+.blue {
+  color: rgb(12, 243, 243);
+}
 
 /* @theme inline {
  --color-background: var(--background);
