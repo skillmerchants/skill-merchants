@@ -18,7 +18,7 @@ const Ads = () => {
       const fetchAds = async () => {
         try {
           const response = await fetch(
-            `$/api/post?limit=${itemsPerPage}&skip=${
+            `/api/post?limit=${itemsPerPage}&skip=${
               (page - 1) * itemsPerPage
             }`,
             {

@@ -24,7 +24,7 @@ export default function JobsPage() {
       async function fetchJobs() {
         try {
           const response = await fetch(
-            `$/api/jobs?limit=${itemsPerPage}&skip=${
+            `/api/jobs?limit=${itemsPerPage}&skip=${
               (page - 1) * itemsPerPage
             }`,
             {

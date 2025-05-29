@@ -71,7 +71,7 @@ export default function UploadAdForm() {
           </nav>
    <div className="sec4 max-w-4xl py-5 mx-auto border border-gray-500 rounded-md shadow-sm ">
        <h2 className="text-2xl font-bold text-center mb-6">Upload an Ad</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && <p className="text-blue-500 mb-4">{error}</p>}
       {success && <p className="text-green-500 mb-4">{success}</p>}
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-4 p-6 ">
         <div>
