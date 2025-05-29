@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     // Fetch users client-side
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/admin`, {
+        const response = await axios.get(`/api/auth/admin`, {
           validateStatus: (status) => status >= 200 && status < 300,
         });
         if (!Array.isArray(response.data)) {
