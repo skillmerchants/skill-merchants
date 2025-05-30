@@ -1,9 +1,7 @@
 "use client"
 // import { Link } from 'react-router-dom';
-import Link from "next/link";
 import React, { useState } from "react";
 import { FaBars, FaTimes,  } from "react-icons/fa";
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 
@@ -60,7 +58,7 @@ const AdminNav = () => {
             </div>
             <div
                 id="nav"
-                className="md:hidden hidden text-right bg-black space-y-5 text-black 
+                className="md:hidden hidden text-right sec4 space-y-5 text-black 
                 gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
             >
                 <div className="text-black text-xl pr-5">
