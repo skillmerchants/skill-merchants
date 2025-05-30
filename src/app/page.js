@@ -14,10 +14,10 @@ export default function Page() {
     <div className="flex flex-col font-roboto text-center items-center justify-center bg-[rgba(222, 246, 250, 0.993)]">
         <Nav />
         <Hero /> 
+        <Tutors />
         <WhyChooseUs /> 
         <Ads />
         <About />
-        <Tutors />
         <Jobs />
         <Contact />
         <Footer />

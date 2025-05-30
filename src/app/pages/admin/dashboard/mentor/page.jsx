@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-const Mentors = () => {
+const  Mentors =  () => {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,6 +20,7 @@ const Mentors = () => {
   };
   const [formData, setFormData] = useState({
     name: "",
+    category: "",
     description: "",
     course: "",
     location: "",
@@ -32,60 +33,89 @@ const Mentors = () => {
   const [editId, setEditId] = useState(null);
   const nameInputRef = useRef(null); // Ref for the Name input
 
-    useEffect(() => {
-      const fetchTutors = async () => {
-        try {
-          const response = await fetch(
-            `/api/mentor?limit=${itemsPerPage}&skip=${
-              (page - 1) * itemsPerPage
-            }`,
-            {
-              method: "GET",
-              cache: "no-store",
-            }
-          );
-  
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
-          }
-  
-          const data = await response.json();
-          console.log("API response:", data);
-          const newTutors = Array.isArray(data.data) ? data.data : [];
-          setMentors((prev) => (page === 1 ? newTutors : [...prev, ...newTutors]));
-          setTotalTutors(data.total || 0);
-          setHasMore((page - 1) * itemsPerPage + newTutors.length < data.total);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching tutors:", error.message);
-          setError(error.message || "Failed to fetch tutors. Please try again.");
-          setLoading(false);
-        }
-      };
-  
-      fetchTutors();
-    }, [page, router]);
-  // // Fetch all mentors
-  // const fetchMentors = async () => {
-  //   try {
-  //     const response = await fetch("/api/mentor");
-  //     if (!response.ok) throw new Error("Failed to fetch mentors");
-  //     const result = await response.json();
-  //     console.log("GET /api/mentor response:", result); // Debug response
-  //     setMentors(Array.isArray(result) ? result : result.data || []);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error fetching mentors:", error);
-  //     setError("Failed to fetch mentors");
-  //     setLoading(false);
-  //   }
-  // };
+   // Define fetchMentors outside useEffect
+const fetchMentors = async (currentPage) => {
+  try {
+    const response = await fetch(
+      `/api/mentor?limit=${itemsPerPage}&skip=${
+        (currentPage - 1) * itemsPerPage
+      }`,
+      {
+        method: "GET",
+        cache: "no-store",
+      }
+    );
 
-  // // Fetch mentors on mount
-  // useEffect(() => {
-  //   fetchMentors();
-  // }, []);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
+    }
+
+    const data = await response.json();
+    console.log("API response:", data);
+    const newTutors = Array.isArray(data.data) ? data.data : [];
+    setMentors((prev) => (currentPage === 1 ? newTutors : [...prev, ...newTutors]));
+    setTotalTutors(data.total || 0);
+    setHasMore((currentPage - 1) * itemsPerPage + newTutors.length < data.total);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching tutors:", error.message);
+    setError(error.message || "Failed to fetch tutors. Please try again.");
+    setLoading(false);
+  }
+};
+
+// Use useEffect to call fetchTutорони
+
+useEffect(() => {
+  fetchMentors(page);
+}, [page, router]);
+
+// Example: Call fetchTutors elsewhere, e.g., in a button click handler
+
+  //   try {
+  //   // Construct query string from queryParams and pagination
+  //   const params = new URLSearchParams({
+  //     ...queryParams,
+  //     limit: itemsPerPage.toString(),
+  //     skip: ((page - 1) * itemsPerPage).toString(),
+  //   }).toString();
+
+  //   const response = await fetch(`${endpoint}?${params}`, {
+  //     ...options,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       ...options.headers,
+  //     },
+  //   });
+
+  //   if (!response.ok) {
+  //     const errorData = await response.json();
+  //     throw new Error(errorData.message || `Failed to fetch data (Status: ${response.status})`);
+  //   }
+
+  //   const data = await response.json();
+  //   console.log("API response:", data);
+
+  //   const newData = Array.isArray(data.data) ? data.data : [];
+  //   if (setData) {
+  //     setData((prev) => (page === 1 ? newData : [...prev, ...newData]));
+  //   }
+  //   if (setTotal) setTotal(data.total || 0);
+  //   if (setHasMore) {
+  //     setHasMore((page - 1) * itemsPerPage + newData.length < data.total);
+  //   }
+  //   if (setLoading) setLoading(false);
+
+  //   return { success: true, data: newData, total: data.total };
+  // } catch (error) {
+  //   console.error(`Error fetching data from ${endpoint}:`, error.message);
+  //   if (setError) {
+  //     setError(error.message || "Failed to fetch data. Please try again.");
+  //   }
+  //   if (setLoading) setLoading(false);
+  //   return { success: false, error: error.message };
+  // }
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -118,6 +148,7 @@ const Mentors = () => {
       // Reset form
       setFormData({
         name: "",
+        category: "",
         description: "",
         course: "",
         location: "",
@@ -144,6 +175,7 @@ const Mentors = () => {
     setEditId(mentor._id);
     setFormData({
       name: mentor.name,
+      category: mentor.category,
       description: mentor.description,
       course: mentor.course,
       location: mentor.location,
@@ -249,6 +281,24 @@ const Mentors = () => {
                 ref={nameInputRef} // Attach ref to Name input
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter mentor's name"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="category"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Category
+              </label>
+              <input
+                type="text"
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter mentor's category"
               />
             </div>
             <div>
@@ -408,6 +458,7 @@ const Mentors = () => {
                   setEditId(null);
                   setFormData({
                     name: "",
+                    category: "",
                     description: "",
                     course: "",
                     location: "",

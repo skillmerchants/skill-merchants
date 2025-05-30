@@ -34,6 +34,7 @@ export async function POST(req) {
     const body = await req.json();
     const {
       name,
+      category,
       description,
       course,
       location,
@@ -47,6 +48,7 @@ export async function POST(req) {
     // Validate input
     if (
       !name ||
+      !category ||
       !description ||
       !course ||
       !location ||
@@ -86,6 +88,7 @@ export async function POST(req) {
     // Create new mentor
     const newMentor = new mentor({
       name,
+      category,
       description,
       course,
       location,

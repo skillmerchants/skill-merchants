@@ -14,6 +14,7 @@ export async function PUT(req, { params }) {
     const body = await req.json();
     const {
       name,
+      category,
       description,
       course,
       location,
@@ -43,6 +44,7 @@ export async function PUT(req, { params }) {
 
     // Find and update mentor
     const updateData = {
+      ...(category && { category }),
       ...(name && { name }),
       ...(description && { description }),
       ...(course && { course }),
