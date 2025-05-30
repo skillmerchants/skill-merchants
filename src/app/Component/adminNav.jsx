@@ -45,7 +45,7 @@ const AdminNav = () => {
                         <button onClick={() => router.push("/pages/pricing")}><p className=' hover:border-2 border-white hover:bg-white  text-black px-3 rounded-full'>Pricing</p></button>
                     </div>
                     <div className="black hover:text-black p-2 rounded-full text-center items-center">
-                        <button onClick={() => router.push("/pages/contact")}><p className=' hover:border-2 border-white hover:bg-white  text-black px-3 rounded-full'>Contact</p></button>
+                        <button onClick={() => router.push("/#contact")}><p className=' hover:border-2 border-white hover:bg-white  text-black px-3 rounded-full'>Contact</p></button>
                     </div>
                 </div>
                 <button className="md:hidden" onClick={toggleMenu}>
@@ -77,7 +77,7 @@ const AdminNav = () => {
                     <button onClick={() => router.push("/pages/pricing")}><p className='text-black'>Pricing</p></button>
                 </div>
                 <div className="text-black text-xl pr-5">
-                    <button onClick={() => router.push("/pages/contact")}><p className='text-black'>Contact</p></button>
+                    <button onClick={() => router.push("/#contact")}><p className='text-black'>Contact</p></button>
                 </div>
             </div>
         </nav>
