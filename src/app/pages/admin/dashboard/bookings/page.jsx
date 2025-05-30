@@ -87,18 +87,15 @@ export default function AdminBookings() {
   if (loading) {
     
     return (
-       <div className="mx-auto  w-full  bg-gray-100 h-full overflow-hidden ">
-      <div className="bg-white flex items-center p-[20px] text-white relative rounded-t-xl">
-
-  
-      </div>
-      <div className="flex bg-white p-8 justify-center items-center h-[450px]">
+       <div className="mx-auto  w-full sec3 h-full overflow-hidden ">
+      
+      <div className="flex  p-8 justify-center items-center min-h-screen">
         <div className="text-center space-y-6">
           <div className="w-24 h-24 border-4 border-t-blue-500 border-gray-700 rounded-full animate-spin mx-auto" />
           <div className="text-blue-500 font-semibold text-4xl opacity-90 animate-fadeIn">
             Almost There...
           </div>
-          <div className="text-[#9e9e9e] text-sm opacity-80 animate-fadeIn">
+          <div className="text-gray-700 text-sm opacity-80 animate-fadeIn">
             <p>We're getting everything ready for you...</p>
             <p>Sit tight for just a moment.</p>
           </div>
@@ -126,7 +123,22 @@ export default function AdminBookings() {
   }
 
   return (
-    <div className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div className="sec3 py-30 px-4 sm:px-6 lg:px-8 min-h-screen">
+                    <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back 
+          </button>
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black hidden md:inline font-[700]">Skill Merchants</h2>
+                </div>
+
+            </div> 
+          </nav>
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
@@ -135,18 +147,13 @@ export default function AdminBookings() {
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
             Manage all bookings and approve payments.
           </p>
-          <button
-            onClick={() => router.push('/pages/admin/dashboard')}
-            className="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
-          >
-            ← Go to User Dashboard
-          </button>
+
         </div>
 
         {bookings.length === 0 ? (
           <p className="text-center text-gray-600 text-lg">No bookings found.</p>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="sec4 rounded-xl shadow-lg p-6">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
