@@ -59,7 +59,7 @@ const AdminNav = () => {
             <div
                 id="nav"
                 className="md:hidden hidden text-right sec4 space-y-5 text-black 
-                gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
+                gap-8 border-1 pb-5 ml-[50%] rounded-bl-lg font-[500] text-[12px]"
             >
                 <div className="text-black text-xl pr-5">
                     <button onClick={() => router.push("/pages/admin/dashboard/jobs")}><p className='text-black'>Job</p></button>
