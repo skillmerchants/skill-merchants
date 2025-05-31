@@ -7,49 +7,109 @@ import { useRouter } from "next/navigation";
 const Tutors = () => {
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [bloading, setBloading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalTutors, setTotalTutors] = useState(0);
   const itemsPerPage = 6;
   const router = useRouter();
+ const [searchKeyword, setSearchKeyword] = useState(''); 
 
+ const fetchTutors = async () => {
+   try {
+     const response = await fetch(
+       `/api/mentor?limit=${itemsPerPage}&skip=${
+         (page - 1) * itemsPerPage
+       }`,
+       {
+         method: "GET",
+         cache: "no-store",
+       }
+     );
+
+     if (!response.ok) {
+       const errorData = await response.json();
+       throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
+     }
+
+     const data = await response.json();
+     console.log("API response:", data);
+     const newTutors = Array.isArray(data.data) ? data.data : [];
+     setTutors((prev) => (page === 1 ? newTutors : [...prev, ...newTutors]));
+     setTotalTutors(data.total || 0);
+     setHasMore((page - 1) * itemsPerPage + newTutors.length < data.total);
+     setLoading(false);
+   } catch (error) {
+     console.error("Error fetching tutors:", error.message);
+     setError(error.message || "Failed to fetch tutors. Please try again.");
+     setLoading(false);
+   }
+ };
   useEffect(() => {
-    const fetchTutors = async () => {
-      try {
-        const response = await fetch(
-          `/api/mentor?limit=${itemsPerPage}&skip=${
-            (page - 1) * itemsPerPage
-          }`,
-          {
-            method: "GET",
-            cache: "no-store",
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
-        }
-
-        const data = await response.json();
-        console.log("API response:", data);
-        const newTutors = Array.isArray(data.data) ? data.data : [];
-        setTutors((prev) => (page === 1 ? newTutors : [...prev, ...newTutors]));
-        setTotalTutors(data.total || 0);
-        setHasMore((page - 1) * itemsPerPage + newTutors.length < data.total);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching tutors:", error.message);
-        setError(error.message || "Failed to fetch tutors. Please try again.");
-        setLoading(false);
-      }
-    };
 
     fetchTutors();
   }, [page, router]);
 
-  if (loading && page === 1) {
+
+const fetchTutor = async (currentPage, key) => {
+    const keyword = key || null ;
+    console.log(keyword);
+    if (keyword == " " ) {
+    fetchTutors();
+    }
+    // setBloading(true);
+    try {
+      const response = await fetch(
+        `/api/mentor?limit=${itemsPerPage}&skip=${
+          (currentPage - 1) * itemsPerPage
+        }&category=${encodeURIComponent(keyword)}`,
+        {
+          method: 'GET',
+          cache: 'no-store',
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Failed to fetch tutors (Status: ${response.status})`);
+      }
+
+      const data = await response.json();
+      // setBloading(false);
+      console.log('API response:', data);
+      const newTutors = Array.isArray(data.data) ? data.data : [];
+      setTutors((prev) => (currentPage === 1 ? newTutors : [...prev, ...newTutors]));
+      setTotalTutors(data.total || 0);
+      setHasMore((currentPage - 1) * itemsPerPage + newTutors.length < data.total);
+    } catch (error) {
+      console.error('Error fetching tutors:', error.message);
+      setError(error.message || 'Failed to fetch tutors. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  // Fetch tutors when searchKeyword or page changes
+  useEffect(() => {
+    if (searchKeyword) {
+      fetchTutor(page, searchKeyword);
+    }
+  }, [page, searchKeyword]);
+
+  // Handle search input change
+  const handleSearch = (e) => {
+    const key = e.target.value;
+    setSearchKeyword(key);
+    setTutors([]); // Reset mentors
+    setPage(1); // Reset to first page
+  };
+  const handleLoadMore = () => {
+    if (hasMore && !loading) {
+      setPage((prev) => prev + 1);
+    }
+  };
+ 
+  if (loading && page === 1 ) {
     return (
       <div className="min-h-screen flex items-center w-full justify-center sec2">
         <div className="flex items-center space-x-2">
@@ -78,7 +138,8 @@ const Tutors = () => {
       </div>
     );
   }
-
+ 
+ 
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center sec3 w-full">
@@ -113,6 +174,23 @@ const Tutors = () => {
             Connect with our collaborative network of seasoned mentors. Book a one-on-one appointment with any of our experts to gain personalized insights and guidance tailored to your needs.
           </p>
         </div>
+
+         <div className=" text-orange-50 mb-4 px-4 py-2 justify-around rounded-3xl flex flex-wrap  bg-indigo-500">
+          <h1  className="py-2 font-bold ">Search Tutors by Category or Keyword </h1>
+          <p className=" hidden">
+            {searchKeyword ? `for "${searchKeyword}"` : ''}
+             </p>
+             
+      <input
+        type="text"
+        value={searchKeyword}
+        onChange={handleSearch}
+        placeholder="Enter Category (e.g., tech)🔎 "
+        className=" bg-blue-50 border-amber-600 border-2  text-blue-600  px-3 py-2  rounded-3xl w-80 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        
+      />
+      
+         </div>
 
         <div className="grid grid-cols-1 text-left sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tutors.length === 0 ? (

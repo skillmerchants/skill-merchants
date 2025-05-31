@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import {  FaInstagram ,FaFacebook , FaTwitter ,FaArrowRight ,FaPhone ,FaEnvelope , FaTiktok} from 'react-icons/fa';
+import {  FaInstagram ,FaFacebook , FaTwitter ,FaArrowRight ,FaPhone ,FaEnvelope , FaTiktok ,FaWhatsapp} from 'react-icons/fa';
 
 const Footer = () => {
     const router = useRouter();
@@ -42,6 +42,7 @@ const Footer = () => {
                            <Link className='font-extrabold text-2xl hover:text-emerald-300' target="_blank" href="https://www.instagram.com/skillmerchants?igsh=a3Z1b2VxNGM3bTU4&utm_source=qr">
                           <FaInstagram /></Link>
                            <Link className='font-extrabold text-2xl hover:text-emerald-300' target="_blank" href="https://www.tiktok.com/@skill.merchants?_t=ZM-8wjdPpQGgSM"><FaTiktok /></Link>
+                           <Link className='font-extrabold text-2xl hover:text-emerald-300' target="_blank" href="https://wa.me/2348105669301"><FaWhatsapp /></Link>
                         </div>
                         <div className="mt-10">
                             <h1>Newsletter</h1>

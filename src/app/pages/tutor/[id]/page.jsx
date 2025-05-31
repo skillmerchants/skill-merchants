@@ -332,15 +332,15 @@ const MentorDetails = ({ params }) => {
                     <span
                       className="cursor-pointer text-indigo-600 hover:underline"
                       onClick={() => {
-                        navigator.clipboard.writeText("8119159108");
+                        navigator.clipboard.writeText("9075557245");
                         alert("Account number copied to clipboard!");
                       }}
                     >
-                      8119159108
+                      9075557245
                     </span>
                   </p>
                   <p>
-                    <strong>Account Name:</strong> UGWU OGOCHUKWU GORDIAN
+                    <strong>Account Name:</strong> EBUBU ROSE OPUTA
                   </p>
                   <p>
                     <strong>Amount:</strong> $

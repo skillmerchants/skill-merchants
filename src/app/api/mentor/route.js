@@ -119,17 +119,29 @@ export async function GET(request) {
     // Connect to database
     await dbConnect();
 
-    // Get query parameters for pagination
+    // Get query parameters for pagination and category
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get("limit")) || 6; // Default to 6 mentors
-    const skip = parseInt(searchParams.get("skip")) || 0; // Default to 0 skip
+    const limit = parseInt(searchParams.get('limit')) || 6; // Default to 6 mentors
+    const skip = parseInt(searchParams.get('skip')) || 0; // Default to 0 skip
+    const category = searchParams.get('category') || ''; // Get category keyword
 
-    // Fetch mentors with limit and skip
-    const mentors = await mentor.find().skip(skip).limit(limit).lean();
-    console.log("Fetched mentors:", mentors);
+    // Validate pagination parameters
+    if (isNaN(limit) || isNaN(skip) || limit < 1 || skip < 0) {
+      return NextResponse.json(
+        { message: 'Invalid pagination parameters' },
+        { status: 400 }
+      );
+    }
+
+    // Build query for partial match on category
+    const query = category ? { category: { $regex: category, $options: 'i' } } : {};
+
+    // Fetch mentors with limit, skip, and category filter
+    const mentors = await mentor.find(query).skip(skip).limit(limit).lean();
+    console.log('Fetched mentors:', mentors);
 
     // Get total count for frontend
-    const totalMentors = await mentor.countDocuments();
+    const totalMentors = await mentor.countDocuments(query);
 
     return NextResponse.json(
       {
@@ -139,9 +151,9 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching mentors:", error.message, error.stack);
+    console.error('Error fetching mentors:', error.message, error.stack);
     return NextResponse.json(
-      { message: "Internal server error", error: error.message },
+      { message: 'Internal server error', error: error.message },
       { status: 500 }
     );
   }
