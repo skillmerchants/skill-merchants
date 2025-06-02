@@ -249,8 +249,8 @@ export default function Pricing() {
             </p>
             <p className="text-gray-600">
               <strong>Bank Name:</strong> Opay<br />
-              <strong>Account Name:</strong> UGWU OGOCHUKWU GORDIAN<br />
-              <strong>Account Number:</strong> 8119159108
+              <strong>Account Name:</strong>  EBUBU ROSE OPUTA<br />
+              <strong>Account Number:</strong>   9075557245
             </p>
             <p className="text-gray-600 mt-4">
               Please confirm all payments with our support team to ensure accurate documentation and
