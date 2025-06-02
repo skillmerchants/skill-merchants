@@ -14,8 +14,10 @@ export async function PATCH(request, { params }) {
     if (!["pending", "confirmed"].includes(status)) {
       return NextResponse.json({ message: "Invalid status" }, { status: 400 });
     }
+    const { id } = await params; // Extract the job ID from context.params
+    console.log('Booking ID:', id);
     const booking = await Booking.findByIdAndUpdate(
-      params.id,
+      id,
       { paymentStatus: status },
       { new: true }
     );
@@ -33,6 +35,7 @@ export async function PATCH(request, { params }) {
           });
       await transporter.sendMail({
         to: userEmail,
+        from: process.env.EMAIL_USER,
         subject: `Appointment Confirmed`,
         html: `
           <h2>Appointment Confirmation</h2>
@@ -41,7 +44,7 @@ export async function PATCH(request, { params }) {
           <p><strong>Details: ${course} </strong></p>
           <ul>
   
-            <h1><strong>Join the group to start receiving your class: </strong> ${link}</h1>
+            <h1><strong>Join the group to start receiving your class: </strong> ${link || null}</h1>
             <li><strong>Payment Status:</strong> confirmed</li>
           </ul>
 

@@ -144,6 +144,7 @@ export async function POST(request) {
 
     await transporter.sendMail({
       to: data.userEmail,
+      from: process.env.EMAIL_USER,
       subject: `Appointment Confirmation with ${data.mentorName}`,
       html: `
         <h2>Appointment Confirmation</h2>

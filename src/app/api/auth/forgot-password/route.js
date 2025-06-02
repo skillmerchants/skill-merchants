@@ -34,7 +34,7 @@ export async function POST(request) {
       },
     });
 
-    const resetUrl = `${process.env.NEXT_PUBLIC_API_URL}/pages/users/reset-password?token=${token}`;
+    const resetUrl = `/pages/users/reset-password?token=${token}`;
     const mailOptions = {
       to: user.email,
       from: process.env.EMAIL_USER,
