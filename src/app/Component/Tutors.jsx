@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaBars, FaTimes, FaRedo } from "react-icons/fa";
 
 const Tutors = () => {
   const [tutors, setTutors] = useState([]);
@@ -150,6 +151,7 @@ const fetchTutor = async (currentPage, key) => {
               setLoading(true);
               setError(null);
               setPage(1);
+              fetchTutors();
             }}
             className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300"
           >
@@ -186,10 +188,19 @@ const fetchTutor = async (currentPage, key) => {
         value={searchKeyword}
         onChange={handleSearch}
         placeholder="Enter Category (e.g., tech)🔎 "
-        className=" bg-blue-50 border-amber-600 border-2  text-blue-600  px-3 py-2  rounded-3xl w-80 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className=" bg-blue-50 border-amber-600 border-2  text-blue-600  px-3 py-2  rounded-3xl w-60 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         
       />
-      
+                    <button
+                onClick={() => fetchTutors()}
+                disabled={ loading}
+                className={`px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300
+                   transition-colors duration-200 ${
+                   loading ? "opacity-50 cursor-not-allowed" : " "
+                }`}
+              >
+                <FaRedo />
+              </button>
          </div>
 
         <div className="grid grid-cols-1 text-left sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,7 +213,7 @@ const fetchTutor = async (currentPage, key) => {
               <div
                 key={tutor._id}
                 className="sec4 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-              >
+              > 
                 <h3 className="text-xl font-bold text-gray-900 truncate">
                   <span className="font-semibold text-blue-600 pr-2">Course:</span> {tutor.course}
                 </h3>

@@ -71,6 +71,9 @@ const AdminNav = () => {
                     <button onClick={() => router.push("/pages/admin/dashboard/ads")}><p className='text-black'>Ads</p></button>
                 </div>
                 <div className="text-black text-xl pr-5">
+                    <button onClick={() => router.push("/pages/admin/dashboard/bookings")}><p className='text-black'>Booking</p></button>
+                </div>
+                <div className="text-black text-xl pr-5">
                     <button onClick={() => router.push("/pages/services")}><p className='text-black'>Services</p></button>
                 </div>
                 <div className="text-black text-xl pr-5">
