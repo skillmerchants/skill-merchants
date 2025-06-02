@@ -230,7 +230,7 @@ export default function AdminBookings() {
                             </button>
                          
                         </td>
-                        {/* <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
                           <span
                             className={
                               booking.paymentStatus === "confirmed"
@@ -244,7 +244,7 @@ export default function AdminBookings() {
                               : "N/A"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        {/* <td className="px-6 py-4 whitespace-nowrap text-sm">
                           {booking.paymentStatus === "pending" ? (
                             <button
                               onClick={() => updateStatus(booking._id, "confirmed")}
