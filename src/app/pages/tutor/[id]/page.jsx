@@ -340,7 +340,7 @@ const MentorDetails = ({ params }) => {
                     </span>
                   </p>
                   <p>
-                    <strong>Account Name:</strong> EBUBU ROSE OPUTA
+                    <strong>Account Name:</strong> EBUBE ROSE OPUTA
                   </p>
                   <p>
                     <strong>Amount:</strong> $
