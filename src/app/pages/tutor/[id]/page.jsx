@@ -286,19 +286,19 @@ const MentorDetails = ({ params }) => {
 
  
                 </div>
-                <div className=" ">
+                <div className="hidden">
                   <label
                     htmlFor="appointmentTime"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    
+
                     Appointment Time
                   </label>
                   <input
                     type="time"
                     id="appointmentTime"
                     name="appointmentTime"
-                    value={bookingForm.appointmentTime}
+                    value={{20:57 }|| bookingForm.appointmentTime}
                     onChange={handleBookingChange}
                     required
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
