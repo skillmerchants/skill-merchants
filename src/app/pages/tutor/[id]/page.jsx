@@ -286,11 +286,12 @@ const MentorDetails = ({ params }) => {
 
  
                 </div>
-                <div className=" hidden">
+                <div className=" ">
                   <label
                     htmlFor="appointmentTime"
                     className="block text-sm font-medium text-gray-700"
                   >
+                    
                     Appointment Time
                   </label>
                   <input
