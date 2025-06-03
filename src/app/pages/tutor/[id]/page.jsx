@@ -203,10 +203,10 @@ const MentorDetails = ({ params }) => {
               <p className="text-gray-600">
                 <span className="font-semibold">Experience:</span> {mentor.experience} years
               </p>
-              <p className="text-gray-600">
+              {/* <p className="text-gray-600">
                 <span className="font-semibold">Service Duration:</span>{" "}
                 {new Date(mentor.duration).toLocaleDateString()}
-              </p>
+              </p> */}
               <p className="text-gray-600">
                 <span className="font-semibold">Location:</span> {mentor.location}
               </p>
@@ -286,7 +286,7 @@ const MentorDetails = ({ params }) => {
 
  
                 </div>
-                <div>
+                <div className=" hidden">
                   <label
                     htmlFor="appointmentTime"
                     className="block text-sm font-medium text-gray-700"
@@ -303,7 +303,7 @@ const MentorDetails = ({ params }) => {
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
-                <div>
+                <div className="hidden">
                   <label
                     htmlFor="durationMonths"
                     className="block text-sm font-medium text-gray-700"
@@ -314,7 +314,7 @@ const MentorDetails = ({ params }) => {
                     type="number"
                     id="durationMonths"
                     name="durationMonths"
-                    value={bookingForm.durationMonths}
+                    value={1 || bookingForm.durationMonths}
                     onChange={handleBookingChange}
                     required
                     min="1"
@@ -343,7 +343,7 @@ const MentorDetails = ({ params }) => {
                     <strong>Account Name:</strong> EBUBE ROSE OPUTA
                   </p>
                   <p>
-                    <strong>Amount:</strong> $
+                    <strong>Amount:</strong> N
                     {bookingForm.durationMonths
                       ? (mentor.salary * bookingForm.durationMonths).toFixed(2)
                       : mentor.salary.toFixed(2)}{" "}
