@@ -344,7 +344,7 @@ const MentorDetails = ({ params }) => {
                     <strong>Account Name:</strong> EBUBE ROSE OPUTA
                   </p>
                   <p>
-                    <strong>Amount:</strong> N
+                    <strong>Amount:</strong> NGN
                     {bookingForm.durationMonths
                       ? (mentor.salary * bookingForm.durationMonths).toFixed(2)
                       : mentor.salary.toFixed(2)}{" "}
