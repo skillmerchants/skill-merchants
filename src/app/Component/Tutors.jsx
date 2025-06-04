@@ -185,12 +185,27 @@ const fetchTutor = async (currentPage, key) => {
              
       <input
         type="text"
+        list="category-list"
+         id="category-input"
         value={searchKeyword}
         onChange={handleSearch}
         placeholder="Enter Category (e.g., tech)🔎 "
         className=" bg-blue-50 border-amber-600 border-2  text-blue-600  px-3 py-2  rounded-3xl w-60 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         
-      />
+      /><datalist id="category-list">
+    <option value="Handwork and skills"></option>
+    <option value="Trading and crypto"></option>
+    <option value="Language exchange tutoring"></option>
+    <option value="Academic tutoring (nursery and primary)"></option>
+    <option value="Academic tutoring (secondary school)"></option>
+    <option value="Academic tutoring (university and masters)"></option>
+    <option value="It/tech domain"></option>
+    <option value="Vlogging and content creating"></option>
+    <option value="Online marketing and business strategies"></option>
+    <option value="gym fitness and nutrition"></option>
+    <option value="Health and mental care"></option>
+</datalist>
+
                     <button
                 onClick={() => fetchTutors()}
                 disabled={ loading}

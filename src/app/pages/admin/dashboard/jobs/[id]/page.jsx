@@ -89,12 +89,23 @@ export default function PostJob({ params }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <button onClick={() => router.back()} className="mb-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold">
-        ← Back to Job Listings
+    <div className="min-h-screen flex items-center justify-center sec3">
+          <nav className="fixed align-items-center top-0 left-0 right-0 z-50">
+            <div className="flex justify-between sec p-1 align-items-lg-center">
+                          <button
+            onClick={() => router.back()}
+            className="m1-4 inline-block text-indigo-600 hover:text-indigo-700 font-semibold"
+          >
+            ← Back 
+          </button>
+                <div className="flex items-center gap-3 mx-9 my-2">
+                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                    <h2 className="text-black hidden md:inline font-[700]">Skill Merchants</h2>
+                </div>
 
-      </button>
-      <div className="w-full max-w-3xl p-8 bg-white shadow-lg rounded-lg">
+            </div> 
+          </nav>
+      <div className="w-full max-w-3xl p-8 sec4 shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           {id ? 'Edit Job' : 'Post a New Job'}
         </h1>
