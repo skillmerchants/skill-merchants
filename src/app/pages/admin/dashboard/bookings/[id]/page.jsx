@@ -211,10 +211,10 @@ export default function BookingDetails({params}) {
             </div>
             <div>
               <h2 className="text-xl font-semibold text-gray-900">Booking Details</h2>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 hidden">
                 <strong>Date & Time:</strong> {booking.appointmentTime || "N/A"}
               </p>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 hidden">
                 <strong>Duration:</strong>{" "}
                 {booking.durationMonths
                   ? `${booking.durationMonths} month${booking.durationMonths !== 1 ? "s" : ""}`
