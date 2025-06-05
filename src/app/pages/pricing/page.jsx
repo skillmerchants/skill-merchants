@@ -250,7 +250,7 @@ export default function Pricing() {
             <p className="text-gray-600">
               <strong>Bank Name:</strong> Opay<br />
               <strong>Account Name:</strong>  UGWU OGOCHUKWU GORDIAN<br />
-              <strong>Account Number:</strong>   08119159108
+              <strong>Account Number:</strong>   8119159108
             </p>
             <p className="text-gray-600 mt-4">
               Please confirm all payments with our support team to ensure accurate documentation and
