@@ -42,7 +42,7 @@ export default function TermsAndPrivacy() {
               <strong>Company Name:</strong> Skill Merchants<br />
               <strong>Website:</strong>{" "}
               <a
-                href="https://www.skillmerchants.com"
+                href="https://www.skillmerchants.com.ng"
                 className="text-indigo-600 hover:text-indigo-800"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -157,12 +157,12 @@ export default function TermsAndPrivacy() {
               <strong>Company Name:</strong> Skill Merchants<br />
               <strong>Website:</strong>{" "}
               <a
-                href="https://www.skillmerchants.com"
+                href="https://www.skillmerchants.com.ng"
                 className="text-indigo-600 hover:text-indigo-800"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                www.skillmerchants.com
+                www.skillmerchants.com.ng
               </a>
               <br />
               <strong>Forceful Date:</strong> 30th May 2025
