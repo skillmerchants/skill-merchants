@@ -222,7 +222,7 @@ export default function BookingDetails({params}) {
               </p>
               <p className="mt-2 text-gray-600">
                 <strong>Amount:</strong>{" "}
-                $
+                NGN
                 {(mentor.amount ||
                   (booking.durationMonths || 0) * (mentor.salary || 0) ||
                   0
