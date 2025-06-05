@@ -154,7 +154,7 @@ export default function PostJob({ params }) {
           {/* Salary */}
           <div>
             <label htmlFor="salary" className="block text-sm font-medium text-gray-700">
-              Salary
+              Salary (NGN)
             </label>
             <input
               type="number"
