@@ -212,7 +212,7 @@ export default function AdminBookings() {
                             : "N/A"}
                         </td> */}
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          $
+                          NGN
                           {(
                             mentor.amount ||
                             (booking.durationMonths || 0) * (mentor.salary || 0) ||
