@@ -211,7 +211,7 @@ const MentorDetails = ({ params }) => {
                 <span className="font-semibold">Location:</span> {mentor.location}
               </p>
               <p className="text-gray-600">
-                <span className="font-semibold">Salary:</span> ${mentor.salary} per month
+                <span className="font-semibold">Salary:</span> NGN{mentor.salary} per month
               </p>
               <p className="text-gray-600">
                 <span className="font-semibold">Availability:</span>{" "}

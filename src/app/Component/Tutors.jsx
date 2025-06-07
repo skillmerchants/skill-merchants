@@ -242,7 +242,7 @@ const fetchTutor = async (currentPage, key) => {
                 </p>
                 <p className="mt-2 text-gray-600">
                   <span className="font-semibold text-blue-600 pr-2">Service Duration:</span>{" "}
-                  {new Date(tutor.duration).toLocaleDateString()}
+                  {tutor.duration}
                 </p>
                 <p className="mt-2 text-gray-600">
                   <span className="font-semibold text-blue-600 pr-2">Location:</span> {tutor.location}
