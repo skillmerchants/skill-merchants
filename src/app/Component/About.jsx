@@ -7,7 +7,7 @@ const About = () => {
             <div className='max-w-[350px] rounded-tr-4xl rounded-bl-4xl sec flex bg-fuchsia-50 flex-col border-l-1 border-b-1 text-left border-black p-5 m-5'>
               <h2 className='font-bold'>About Us</h2>
               <p>
-                    Skill Merchants is a leading online platform that connects individuals with the skills they need to succeed in today's competitive job market. Our mission is to empower learners by providing access to high-quality training, resources, and job opportunities. We believe that everyone deserves the chance to learn, grow, and thrive in their careers.
+                    Skill Merchants is a leading online platform that connects individuals with the skills they need to succeed in today's competitive job market. Our vision is to empower learners by providing access to high-quality training, resources, and job opportunities. We believe that everyone deserves the chance to learn, grow, and thrive in their careers.
               </p>
             </div>
             <div className='max-w-[350px] rounded-tr-4xl rounded-bl-4xl sec flex bg-fuchsia-50 flex-col border-l-1 border-b-1 text-left border-black p-5 m-5'>
