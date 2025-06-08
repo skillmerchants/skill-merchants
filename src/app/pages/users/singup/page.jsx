@@ -50,7 +50,6 @@ export default function UserSignup() {
   }, [password]);
 
   const handleSubmit = async (e) => {      
-    setLoading(true);
     e.preventDefault();
     setMessage(null);
     setError(null);
@@ -72,7 +71,6 @@ export default function UserSignup() {
         email,
         password,
       });
-      setLoading(false);
       setMessage(response.data.message || "Signup successful! Redirecting to login...");
       setEmail("");
       setPassword("");
