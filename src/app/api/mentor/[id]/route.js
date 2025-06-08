@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@lib/dbConnect';
 import mentor from '@models/mentor';
-
+import Booking from "@/models/Booking";
 // PUT: Update a mentor by ID
 export async function PUT(req, { params }) {
   try {
@@ -90,7 +90,8 @@ export async function DELETE(req, { params }) {
 
   
     const Mentor = await mentor.findByIdAndDelete(id);
-
+    const bookings = await Booking.deleteMany({ mentorId: id });
+    
     if (!Mentor) {
       return NextResponse.json({ message: "Mentor not found" }, { status: 404 });
     }
