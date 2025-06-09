@@ -93,14 +93,14 @@ export default function UserLogin() {
                 required
               />
             </div>
-              <div>
+              {/* <div>
               <input type="checkbox" required name="terms" id="terms" />
               <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
                 <button onClick={() => router.push("/pages/terms")} className="hover:text-blue-600">
               I agree to the Terms & Privacy
             </button>
               </label>
-            </div>
+            </div> */}
             {/* Submit Button */}
             <button
               type="submit"
