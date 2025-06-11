@@ -152,8 +152,8 @@ export default function HowItWorks() {
                   mentee.
                 </p>
                 <p className="text-gray-600">
-                  <strong>Revenue Sharing Structure:</strong> Mentors will receive 80% of the total
-                  amount paid by the mentee for services rendered. Skill Merchants will retain 20% as a
+                  <strong>Revenue Sharing Structure:</strong> Mentors will receive 70% of the total
+                  amount paid by the mentee for services rendered. Skill Merchants will retain 30% as a
                   platform service fee.
                 </p>
               </div>
