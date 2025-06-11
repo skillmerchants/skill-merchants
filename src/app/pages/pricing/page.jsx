@@ -143,7 +143,7 @@ export default function Pricing() {
                 <ul className="list-disc list-inside text-gray-600 ml-4">
                   <li>Mentees pay weekly, directly into the official Skill Merchants account.</li>
                   <li>
-                    Mentors receive 80%, and Skill Merchants retain 20% as a service fee.
+                    Mentors receive 70%, and Skill Merchants retain 30% as a service fee.
                   </li>
                   <li>
                     Payments to mentors are made only after full payment is received from the mentee.
