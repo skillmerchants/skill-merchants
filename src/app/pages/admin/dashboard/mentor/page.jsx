@@ -293,6 +293,7 @@ useEffect(() => {
               <input
                 type="text"
                 id="category"
+                list="category-list"
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
@@ -300,6 +301,19 @@ useEffect(() => {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter mentor's category"
               />
+              <datalist id="category-list">
+    <option value="Handwork and skills"></option>
+    <option value="Trading and crypto"></option>
+    <option value="Language exchange tutoring"></option>
+    <option value="Academic tutoring (nursery and primary)"></option>
+    <option value="Academic tutoring (secondary school)"></option>
+    <option value="Academic tutoring (university and masters)"></option>
+    <option value="It/tech domain"></option>
+    <option value="Vlogging and content creating"></option>
+    <option value="Online marketing and business strategies"></option>
+    <option value="gym fitness and nutrition"></option>
+    <option value="Health and mental care"></option>
+</datalist>
             </div>
             <div>
               <label

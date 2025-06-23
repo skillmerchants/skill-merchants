@@ -120,7 +120,7 @@ export default function JobsPage() {
                  
                   <p className="text-sm text-gray-500 mt-4 "><span className="font-semibold text-blue-600 pr-2">Location:</span>{job.location}</p>
                   <p className="text-sm text-gray-500 mt-2 "><span className="font-semibold text-blue-600 pr-2">Salary:</span>
-                    {job.salary ? `$${job.salary}` : "Salary not disclosed"}
+                    {job.salary ? `NGN ${job.salary}` : "Salary not disclosed"}
                   </p>
                   <p className="text-sm text-gray-500 mt-2 "><span className="font-semibold text-blue-600 pr-2">Posted on:</span>
                      {new Date(job.createdAt).toLocaleDateString()}

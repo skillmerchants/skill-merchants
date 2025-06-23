@@ -211,7 +211,8 @@ const MentorDetails = ({ params }) => {
                 <span className="font-semibold">Location:</span> {mentor.location}
               </p>
               <p className="text-gray-600">
-                <span className="font-semibold">Salary:</span> NGN{mentor.salary} per month
+                <span className="font-semibold">Salary:</span>
+                 NGN{mentor.salary.toLocaleString('en-US')} per month
               </p>
               <p className="text-gray-600">
                 <span className="font-semibold">Availability:</span>{" "}
@@ -344,12 +345,9 @@ const MentorDetails = ({ params }) => {
                     <strong>Account Name:</strong> EBUBE ROSE OPUTA
                   </p>
                   <p>
-                    <strong>Amount:</strong> NGN
-                    {bookingForm.durationMonths
-                      ? (mentor.salary * bookingForm.durationMonths).toFixed(2)
-                      : mentor.salary.toFixed(2)}{" "}
-                    ({bookingForm.durationMonths || 1} month
-                    {bookingForm.durationMonths !== "1" ? "s" : ""})
+                    <strong>Booking Amount:</strong> NGN
+                   {"1000 "}
+                   <span className="text-sm text-gray-500">(One Thousand Naira)</span>
                   </p>
                 </div>
                 <div>

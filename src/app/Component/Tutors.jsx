@@ -248,7 +248,7 @@ const fetchTutor = async (currentPage, key) => {
                   <span className="font-semibold text-blue-600 pr-2">Location:</span> {tutor.location}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold text-blue-600 pr-2">Salary:</span> NGN{tutor.salary}
+                  <span className="font-semibold text-blue-600 pr-2">Salary:</span> NGN{tutor.salary.toLocaleString('en-US')}
                 </p>
                 <p className="mt-2 text-gray-600">
                   <span className="font-semibold text-blue-600">Availability:</span>{" "}
