@@ -155,7 +155,7 @@ const Ads = () => {
               <div
                 key={ad._id}
                 className="relative sec rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-                onMouseEnter={(e) => handleMouseEnter(ad._id, e)}
+                onClick={(e) => handleMouseEnter(ad._id, e)}
                 onMouseLeave={(e) => handleMouseLeave(ad._id, e)}
               >
                 <div className="relative w-full h-64">
