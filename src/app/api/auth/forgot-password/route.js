@@ -34,7 +34,7 @@ export async function POST(request) {
       },
     });
 
-    const resetUrl = `https://skillmercants.com/pages/users/reset-password?token=${token}`;
+    const resetUrl = `https://skillmerchants.com/pages/users/reset-password?token=${token}`;
     const mailOptions = {
       to: user.email,
       from: process.env.EMAIL_USER,
