@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import User from '@models/User';
+import User from "@models/User";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 
@@ -44,8 +44,6 @@ export async function POST(request) {
       html: `<p>You requested a password reset. Click the link to reset your password:</p>
              <a href="${resetUrl}">click to reset</a>
              <p>If you did not request this, please ignore this email.</p>`,
-      
-
     };
 
     await transporter.sendMail(mailOptions);
