@@ -34,12 +34,18 @@ export async function POST(request) {
       },
     });
 
-    const resetUrl = `/pages/users/reset-password?token=${token}`;
+    const resetUrl = `https://skillmrcants.com/pages/users/reset-password?token=${token}`;
     const mailOptions = {
       to: user.email,
       from: process.env.EMAIL_USER,
       subject: "Skill Merchants Password Reset",
-      text: `You requested a password reset. Click the link to reset your password: ${resetUrl}\n\nIf you did not request this, please ignore this email.\n`,
+      // text: `You requested a password reset. Click the link to reset your password:
+      //  ${resetUrl}\n\nIf you did not request this, please ignore this email.\n`,
+      html: `<p>You requested a password reset. Click the link to reset your password:</p>
+             <a href="${resetUrl}">click to reset</a>
+             <p>If you did not request this, please ignore this email.</p>`,
+      
+
     };
 
     await transporter.sendMail(mailOptions);
