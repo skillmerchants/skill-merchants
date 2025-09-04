@@ -162,7 +162,7 @@ const Ads = () => {
                       src={`/api/post/${ad.image}`}
                       alt={ad.title || "Advertisement"}
                       className='w-full h-full object-cover transition-opacity duration-300'
-                      style={{ opacity: 0 }}
+                      style={{ opacity: 1 }}
                       onError={() =>
                         console.error(`Failed to load image for ad ${ad._id}`)
                       }
@@ -172,7 +172,7 @@ const Ads = () => {
                     <video
                       ref={(el) => (videoRefs.current[ad._id] = el)}
                       className='w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-300'
-                      style={{ opacity: 1 }}
+                      style={{ opacity: 0 }}
                       autoPlay='false'
                       loop
                       preload='auto'
