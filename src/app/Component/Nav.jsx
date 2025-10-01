@@ -23,7 +23,7 @@ const Nav = () => {
                    <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
                     <h2 className="text-black font-[700]">Skill Merchants</h2>
                 </div>
-                <div className="md:flex hidden text-center items-center text-black gap-8 mx-18 font-[500] text-[12px] my-2">
+                <div className=" hidden text-center items-center text-black gap-8 mx-18 font-[500] text-[12px] my-2">
                     <div className="hover:bg-blue-50 hover:text-black p-2 rounded-full text-center items-center">
                         <button onClick={() => router.push("/pages/users/dashboard")}><p className='text-black'>Dashboard</p> </button>
                     </div>
