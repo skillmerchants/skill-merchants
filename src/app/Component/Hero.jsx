@@ -5,9 +5,8 @@ import { useRouter } from 'next/navigation';
 const Hero = () => {
     const router = useRouter();
     return (
-        <div>
-            
-      <div className="min-h-screen bg-[#21dbdb] font-['Inter'] antialiased">
+        <div>   
+          <div className="min-h-screen bg-[#21dbdb] font-['Inter'] antialiased">
         {/* Main container */}
         <div className='relative w-full hidden md:block max-w-[1440px] mx-auto min-h-screen  bg-[#21dbdb] overflow-visible'>
           {/* Background rectangle */}
