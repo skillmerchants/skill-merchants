@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaBars, FaTimes,  } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+
 const Nav = () => {
         const router = useRouter();
         const [isOpen, setIsOpen] = useState(false);
