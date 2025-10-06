@@ -20,6 +20,7 @@ const Hero = () => {
               alt='background'
             />
 
+
             {/* Navigation bar */}
             <div className='absolute top-[32px] left-1/2 -translate-x-1/2 w-[817px] h-[59px] bg-white/70 rounded-[20px]' />
 
