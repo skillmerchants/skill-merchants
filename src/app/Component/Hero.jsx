@@ -2,8 +2,8 @@
 import React from 'react';
 // import { FaArrowDown } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import logo from "../../public/logo.png";
-import bg from "../../public/bg.png";
+import logo from "@/public/logo.png";
+import bg from "@/public/bg.png";
 const Hero = () => {
     const router = useRouter();
     return (
