@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-// import { FaArrowDown } from 'react-icons/fa';
+import { FaArrowDown } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 const Hero = () => {
