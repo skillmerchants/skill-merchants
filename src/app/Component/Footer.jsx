@@ -61,7 +61,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <p>©2025 Skill Merchants Global Network. All rights reserved</p>
+                    <p>©2025 Skill Merchants Limited. All rights reserved</p>
                 </div>
             </div>
         </footer>
