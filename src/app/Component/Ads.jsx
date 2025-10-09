@@ -176,6 +176,7 @@ const Ads = () => {
                      autoplay="false"
                      muted
                       loop
+                      
                       preload='auto'
                       onLoadedData={() =>
                         console.log(`Video loaded for ad ${ad._id}`)
