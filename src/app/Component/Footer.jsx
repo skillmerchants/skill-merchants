@@ -52,7 +52,7 @@ const Footer = () => {
                                     className="placeholder:p-2 rounded-l-sm bg-white text-black p-2 placeholder:text-gray-700"
                                     name="email"
                                     placeholder="your email"
-                                    id=""
+                                    id="email"
                                 />
                                 <div className='bg-[#008D27] h-10 w-10 rounded-r-sm flex justify-center items-center'> Send<FaArrowRight /></div>
 
@@ -61,7 +61,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <p>©2025 Skill Merchants Global Network. All rights reserved</p>
+                    <p>©2025 Skill Merchants Limited. All rights reserved</p>
                 </div>
             </div>
         </footer>
