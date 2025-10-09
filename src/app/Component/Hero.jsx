@@ -2,16 +2,16 @@
 import React from 'react';
 import { FaArrowDown } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import Image from "next/image";
+import Image from 'next/image';
 const Hero = () => {
     const router = useRouter();
     return (
       <div>
-        <div className="min-h-screen bg-[#21dbdb] font-['Inter'] antialiased">
+        <div className="min-h-screen hidden md:block bg-[#21dbdb] font-['Inter'] antialiased">
           {/* Main container */}
-          <div className='relative w-full hidden md:block max-w-[1440px] mx-auto min-h-screen  bg-[#21dbdb] overflow-visible'>
+          <div className='relative w-full  max-w-[1440px]  min-h-screen  bg-[#21dbdb] overflow-visible'>
             {/* Background rectangle */}
-            <div className='absolute w-[1440px] h-[700px] bg-[#21dbdb]' />
+            <div className=' w-[1355px] h-[700px] bg-[#21dbdb]' />
 
             {/* Background vector/image */}
             <img
@@ -19,7 +19,6 @@ const Hero = () => {
               src='/images/bg.png'
               alt='background'
             />
-
 
             {/* Navigation bar */}
             <div className='absolute top-[32px] left-1/2 -translate-x-1/2 w-[817px] h-[59px] bg-white/70 rounded-[20px]' />
@@ -60,7 +59,7 @@ const Hero = () => {
 
             {/* Logo */}
             <img
-              className='absolute top-[125px] left-[360px] w-[78px] h-[75px] object-cover'
+              className='absolute top-[125px] left-[360px] w-[70px] h-[70px] object-cover'
               src='/images/logo.png'
               alt='logo'
             />
@@ -78,7 +77,7 @@ const Hero = () => {
             </p>
 
             {/* CTA Buttons container */}
-            <div className='absolute top-[608px] left-[49px] flex'>
+            <div className='absolute top-[608px] left-[59px] flex'>
               {/* Get Started button */}
               <button
                 onClick={() => router.push("#mentors")}
@@ -132,5 +131,5 @@ const Hero = () => {
       </div>
     );
 };
-
+    
 export default Hero;
