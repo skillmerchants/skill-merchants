@@ -52,7 +52,7 @@ const Footer = () => {
                                     className="placeholder:p-2 rounded-l-sm bg-white text-black p-2 placeholder:text-gray-700"
                                     name="email"
                                     placeholder="your email"
-                                    id=""
+                                    id="email"
                                 />
                                 <div className='bg-[#008D27] h-10 w-10 rounded-r-sm flex justify-center items-center'> Send<FaArrowRight /></div>
 
