@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FaBars, FaTimes,  } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 const Nav = () => {
         const router = useRouter();
         const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +21,7 @@ const Nav = () => {
         <nav className="fixed  top-0 left-0 right-0 z-50">
             <div className="md:hidden flex justify-between sec p-1 align-items-lg-center">
                 <div className="flex items-center gap-3 mx-15 my-2">
-                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                   <img className="rounded-full w-25 h-15" src="/images/logo.png" alt="" />
                     <h2 className="text-black font-[700]">Skill Merchants</h2>
                 </div>
                 <div className=" hidden text-center items-center text-black gap-8 mx-18 font-[500] text-[12px] my-2">
