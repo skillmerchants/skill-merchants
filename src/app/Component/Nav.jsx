@@ -19,7 +19,7 @@ const Nav = () => {
         };
     return (
         <nav className="fixed  top-0 left-0 right-0 z-50">
-            <div className="flex justify-between sec p-1 align-items-lg-center">
+            <div className="md:hidden flex justify-between sec p-1 align-items-lg-center">
                 <div className="flex items-center gap-3 mx-15 my-2">
                    <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
                     <h2 className="text-black font-[700]">Skill Merchants</h2>
@@ -51,7 +51,7 @@ const Nav = () => {
             </div>
             <div
                 id="nav"
-                className="md:hidden hidden sec rounded-bl-3xl border-2 text-right sec4 space-y-5 text-black 
+                className="md:hidden  hidden sec rounded-bl-3xl border-2 text-right sec4 space-y-5 text-black 
                 gap-8 border-t-1 pb-5 ml-[50%]  font-[500] text-[12px]"
             >
                 <div className="text-black active:bg-blue-600 text-xl pr-5">
