@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 export default function HowItWorks() {
-    const router = useRouter();
+  const router = useRouter();
+
   return (
-    <div className=' py-30  px-4 sm:px-6 lg:px-8 min-h-screen'>
+    <div className='py-30 px-4 sm:px-6 lg:px-8 min-h-screen'>
       <nav className='fixed align-items-center top-0 left-0 right-0 z-50'>
         <div className='flex justify-between sec p-1 align-items-lg-center'>
           <button
@@ -19,13 +21,13 @@ export default function HowItWorks() {
               src='/images/logo.png'
               alt=''
             />
-
             <h2 className='text-black hidden md:inline font-[700]'>
               Skill Merchants
             </h2>
           </div>
         </div>
       </nav>
+
       <div className='container mx-auto max-w-4xl'>
         {/* Header */}
         <div className='text-center mb-12'>
@@ -39,6 +41,111 @@ export default function HowItWorks() {
 
         {/* Main Content */}
         <div className='sec4 rounded-xl shadow-lg p-6 sm:p-8'>
+          {/* Our Services Section - Added */}
+          <section className='mb-12'>
+            <h2 className='text-2xl font-bold text-gray-900 mb-6'>
+              Our Services
+            </h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              {/* Skill Development */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Skill Development
+                </h3>
+                <p className='text-gray-600'>
+                  Identify, develop, and refine your skills through personalized
+                  training programs. We assess your strengths, recommend
+                  tailored courses, and connect you with hands-on learning
+                  opportunities.
+                </p>
+              </div>
+
+              {/* Career Placement */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Career Placement
+                </h3>
+                <p className='text-gray-600'>
+                  Land job opportunities and training placements that match your
+                  skills and goals. We analyse your profile, match you with
+                  employers, and guide you through the application process.
+                </p>
+              </div>
+
+              {/* Proposal Guide */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Proposal Guide
+                </h3>
+                <p className='text-gray-600'>
+                  Craft winning academic and business proposals for funding,
+                  partnerships, or projects. Our step-by-step guides, templates,
+                  and expert feedback ensure your proposals stand out.
+                </p>
+              </div>
+
+              {/* Business Growth */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Business Growth
+                </h3>
+                <p className='text-gray-600'>
+                  Grow your business with strategic marketing and promotion. We
+                  create customized campaigns, from branding to digital ads, to
+                  help you reach your target audience.
+                </p>
+              </div>
+
+              {/* Tutoring Support */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Tutoring Support
+                </h3>
+                <p className='text-gray-600'>
+                  Get personalized learning support for academic or professional
+                  growth. We match you with experienced tutors for one-on-one
+                  sessions, online or in-person, tailored to your needs.
+                </p>
+              </div>
+
+              {/* Global Opportunities */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Global Opportunities
+                </h3>
+                <p className='text-gray-600'>
+                  Access scholarships, conferences, and global insights to
+                  expand your horizons. We curate opportunities and guide you
+                  through applications to secure your spot.
+                </p>
+              </div>
+
+              {/* Entrepreneur Support */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Entrepreneur Support
+                </h3>
+                <p className='text-gray-600'>
+                  Launch, grow, and scale your business with end-to-end support.
+                  From crafting business plans to promoting your products, we
+                  provide tools and strategies for success.
+                </p>
+              </div>
+
+              {/* Expert Consultation */}
+              <div className='bg-white p-6 rounded-lg shadow-md border border-gray-200'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+                  Expert Consultation
+                </h3>
+                <p className='text-gray-600'>
+                  Personalized guidance to solve challenges in your career,
+                  business, or education. Our 1:1 sessions with industry experts
+                  help you strategize, refine goals and achieve outcomes faster.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Introduction */}
           <section className='mb-12'>
             <h2 className='text-2xl font-bold text-gray-900 mb-4'>Overview</h2>
@@ -273,7 +380,7 @@ export default function HowItWorks() {
                 className='text-indigo-600 hover:text-indigo-800'>
                 contact
               </button>
-              tab available in the website’s navigation menu.
+              tab available in the website's navigation menu.
             </p>
             <p className='text-gray-600'>
               <strong>Custom and Additional Services:</strong> We also cater to
