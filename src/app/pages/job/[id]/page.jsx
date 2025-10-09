@@ -86,7 +86,7 @@ export default function JobDetails() {
               <nav className="fixed  top-0 left-0 right-0 z-50">
             <div className="flex justify-between sec p-1 align-items-lg-center">
                 <div className="flex items-center gap-3 mx-9 my-2">
-                   <img className="rounded-full w-10 h-10" src="https://images.seeklogo.com/logo-png/17/2/sm-supermalls-logo-png_seeklogo-176299.png" alt="" />
+                   <img className="rounded-full w-10 h-10" src="/images/logo.png" alt="" />
                     <h2 className="text-black font-[700]">Skill Merchants</h2>
                 </div>
                           <button

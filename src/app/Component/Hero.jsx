@@ -59,7 +59,7 @@ const Hero = () => {
 
             {/* Logo */}
             <img
-              className='absolute top-[125px] left-[360px] w-[70px] h-[70px] object-cover'
+              className='absolute top-[125px] left-[360px] w-[100px] h-[90px] object-cover'
               src='/images/logo.png'
               alt='logo'
             />
@@ -131,5 +131,5 @@ const Hero = () => {
       </div>
     );
 };
-    
+
 export default Hero;

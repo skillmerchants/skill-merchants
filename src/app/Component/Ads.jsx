@@ -173,7 +173,8 @@ const Ads = () => {
                       ref={(el) => (videoRefs.current[ad._id] = el)}
                       className='w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-300'
                       style={{ opacity: 0 }}
-                     
+                     autoplay="false"
+                     muted
                       loop
                       preload='auto'
                       onLoadedData={() =>
